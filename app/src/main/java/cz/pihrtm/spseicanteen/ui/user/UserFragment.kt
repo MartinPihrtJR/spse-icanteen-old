@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cz.pihrtm.spseicanteen.R
 
-class SlideshowFragment : Fragment() {
+class UserFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
 
