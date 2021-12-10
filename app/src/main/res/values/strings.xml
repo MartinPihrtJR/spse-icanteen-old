@@ -7,7 +7,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Nastavení</string>
 
-    <string name="menu_home">Dnešní objednávky</string>
-    <string name="menu_gallery">Oznámení</string>
-    <string name="menu_slideshow">Widget</string>
+    <string name="menu_objednavky">Moje objednávky</string>
+    <string name="menu_notif">Oznámení</string>
+    <string name="menu_objednej">Auto objednávání</string>
+    <string name="menu_user">Změna uživatele</string>
+    <string name="menu_infobar">Informace</string>
+    <string name="menu_widget">Widget</string>
+    <string name="menu_info">O aplikaci</string>
 </resources>
