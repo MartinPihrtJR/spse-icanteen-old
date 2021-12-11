@@ -29,13 +29,10 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        val button: Button = findViewById(R.id.button)
+        
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        button.setOnClickListener {
-            Log.i("BUTT","CLICKED")
-            Toast.makeText(this, "Clicked", "1".toInt()).show()
-        }
+
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -47,14 +44,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.nav_widget) {
-                var cas = 1;
-                Toast.makeText(this, "WIDGET", cas.toInt()).show()
-                Log.d("Wid", "widgetOK");
-            }
-        }
         navView.setupWithNavController(navController)
         //**********************************************************************************
         //dalsi kod tady
