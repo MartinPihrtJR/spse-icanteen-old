@@ -1,4 +1,4 @@
-package cz.pihrtm.spseicanteen.ui.slideshow
+package cz.pihrtm.spseicanteen.ui.user
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +19,6 @@ class UserFragment : Fragment() {
     ): View? {
         userViewModel =
                 ViewModelProvider(this).get(UserViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_slideshow, container, false)
+        return inflater.inflate(R.layout.fragment_user, container, false)
     }
 }

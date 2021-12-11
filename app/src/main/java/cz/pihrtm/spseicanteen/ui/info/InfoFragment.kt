@@ -1,4 +1,4 @@
-package cz.pihrtm.spseicanteen.ui.slideshow
+package cz.pihrtm.spseicanteen.ui.info
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import cz.pihrtm.spseicanteen.R
 
-class SlideshowFragment : Fragment() {
+class InfoFragment : Fragment() {
 
-    private lateinit var userViewModel: SlideshowViewModel
+    private lateinit var userViewModel: InfoViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -18,7 +18,7 @@ class SlideshowFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         userViewModel =
-                ViewModelProvider(this).get(SlideshowViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_slideshow, container, false)
+                ViewModelProvider(this).get(InfoViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_info, container, false)
     }
 }

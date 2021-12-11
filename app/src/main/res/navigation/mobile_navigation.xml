@@ -24,7 +24,17 @@
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_user"
-        android:name="cz.pihrtm.spseicanteen.ui.slideshow.UserFragment"
+        android:name="cz.pihrtm.spseicanteen.ui.user.UserFragment"
         android:label="@string/menu_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/nav_widget"
+        android:name="cz.pihrtm.spseicanteen.ui.widget.WidgetFragment"
+        android:label="@string/menu_widget"
+        tools:layout="@layout/fragment_widget" />
+    <fragment
+        android:id="@+id/nav_info"
+        android:name="cz.pihrtm.spseicanteen.ui.info.InfoFragment"
+        android:label="@string/menu_info"
+        tools:layout="@layout/fragment_info" />
 </navigation>
