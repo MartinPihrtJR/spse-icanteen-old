@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.button)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        button.setOnClickListener {
+            Log.i("BUTT","CLICKED")
+            Toast.makeText(this, "Clicked", "1".toInt()).show()
+        }
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
@@ -53,9 +58,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         //**********************************************************************************
         //dalsi kod tady
-        button.setOnClickListener {
-            Log.i("BUTT","CLICKED")
-        }
+
     }
 
 
