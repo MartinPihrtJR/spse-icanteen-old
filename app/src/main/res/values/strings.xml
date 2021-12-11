@@ -14,4 +14,10 @@
     <string name="menu_infobar">Informace</string>
     <string name="menu_widget">Widget</string>
     <string name="menu_info">O aplikaci</string>
+    <string name="lgn_change_title">Nový uživatel</string>
+    <string name="lgn_btn_clear">Zapomenout uživatele</string>
+    <string name="lgn_curr_pre">Aktivní uživatel:</string>
+    <string name="lgn_field_name">Jméno</string>
+    <string name="lgn_field_pwd">Heslo</string>
+    <string name="lgn_btn_save">Uložit a přihlásit</string>
 </resources>

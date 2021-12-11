@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import cz.pihrtm.spseicanteen.R
+
+
+
 
 
 class HomeFragment : Fragment() {
@@ -19,7 +24,12 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_home, container, false)
+        val b: Button = view.findViewById(R.id.button)
+        b.setOnClickListener {
+            Toast.makeText(context, "BOTTON", "1".toInt()).show()
+        }
+        return view
     }
 
 }
