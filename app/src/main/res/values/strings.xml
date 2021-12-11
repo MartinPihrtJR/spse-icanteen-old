@@ -16,6 +16,9 @@
     <string name="menu_info">O aplikaci</string>
     <string name="lgn_change_title">Nový uživatel</string>
     <string name="lgn_btn_clear">Zapomenout uživatele</string>
+    <string name="field_blank">Pole nesmí být prázdná!</string>
+    <string name="field_saved">Uloženo</string>
+    <string name="field_clear">Uživatel zapomenut</string>
     <string name="lgn_curr_pre">Aktivní uživatel:</string>
     <string name="lgn_field_name">Jméno</string>
     <string name="lgn_field_pwd">Heslo</string>
