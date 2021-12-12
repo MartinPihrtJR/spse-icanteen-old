@@ -29,7 +29,7 @@ class UserFragment : Fragment() {
         val fieldPwd: EditText = view.findViewById(R.id.editTextPwd)
         val saveBtn: Button = view.findViewById(R.id.buttonLgnSave)
         val clearBtn: Button = view.findViewById(R.id.buttonLgnClear)
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = activity?.getSharedPreferences("creds", Context.MODE_PRIVATE)
         var name = "null"
         var pwd = "null"
 
