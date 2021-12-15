@@ -29,11 +29,12 @@ class GetJson : BroadcastReceiver() {
         val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
         val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
+        val objednej = context?.getSharedPreferences("settings", Context.MODE_PRIVATE)?.getString("objednej", "0")
         val apikey = 1234
-        var fulladdr = "$addr$name&heslo=$pwd&api=$apikey"
-        Log.i("CREDS", "jméno: $name")
+        var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&objednej=$objednej"
+        /*Log.i("CREDS", "jméno: $name")
         Log.i("CREDS", "heslo $pwd")
-        Log.i("FULLURL", fulladdr)
+        Log.i("FULLURL", fulladdr)*/
         var output = getDataFromUrl(fulladdr)
         Log.i("DATAint", output)
         val mainObject = JSONArray(output)
@@ -45,6 +46,11 @@ class GetJson : BroadcastReceiver() {
             val jidlo: String = obed.getString("jidlo")
             Log.i("DATUM",datum)
             Log.i("JIDLO",jidlo)
+        }
+        val filename = "jidla"
+        val fileContents = output
+        context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
+            it?.write(fileContents?.toByteArray())
         }
 
     }

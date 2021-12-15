@@ -1,30 +1,15 @@
 package cz.pihrtm.spseicanteen.ui.home
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Context.ALARM_SERVICE
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import cz.pihrtm.spseicanteen.GetJson
 import cz.pihrtm.spseicanteen.R
-import androidx.core.content.ContextCompat
-
-import androidx.core.content.ContextCompat.getSystemService
-
-
-
-
-
-
 
 
 class HomeFragment : Fragment() {
@@ -38,9 +23,12 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
-        val b: Button = view.findViewById(R.id.button)
-        b.setOnClickListener {
-            val repeatTime = 10 //Repeat alarm time in seconds
+        val button: Button = view.findViewById(R.id.button)
+        val save: Button = view.findViewById(R.id.buttonsave)
+        val laod: Button = view.findViewById(R.id.buttonload)
+        var jidla = ""
+        button.setOnClickListener {
+            /*val repeatTime = 10 //Repeat alarm time in seconds
 
             val processTimer: AlarmManager? = context?.getSystemService(ALARM_SERVICE) as AlarmManager?
             val intent = Intent(context, GetJson::class.java)
@@ -51,10 +39,36 @@ class HomeFragment : Fragment() {
                 System.currentTimeMillis(),
                 (repeatTime * 1000).toLong(),
                 pendingIntent
-            )
-            Log.i("BTN","BTN1 OK")
+            )*/
+            var files: Array<String> = requireContext().fileList()
+            if (files.isEmpty()){
+                Log.i("FILES","ERR")
+            }
+            else{
+                Log.i("FILES",files[0].toString())
+            }
+
+            /*Log.i("BTN","BTN1 OK")
+            context?.openFileInput("jidla.json")?.bufferedReader()?.useLines { lines ->
+                jidla = lines.toString()
+            }
+            Log.i("JSON", jidla)*/
 
         }
+        save.setOnClickListener {
+            val filename = "jidla.json"
+            val fileContents = "test"
+            context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                it?.write(fileContents?.toByteArray())
+            }
+        }
+
+        laod.setOnClickListener {
+            context?.openFileInput("jidla.json")?.bufferedReader()?.readLines()
+            Log.i("JSON", jidla)
+        }
+
+
         return view
     }
 
