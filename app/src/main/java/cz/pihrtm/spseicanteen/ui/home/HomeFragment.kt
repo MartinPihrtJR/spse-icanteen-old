@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
         val button: Button = view.findViewById(R.id.button)
         val save: Button = view.findViewById(R.id.buttonsave)
         val laod: Button = view.findViewById(R.id.buttonload)
-        var jidla = ""
+        var jidla: String
         button.setOnClickListener {
             /*val repeatTime = 10 //Repeat alarm time in seconds
 
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
                 Log.i("FILES","ERR")
             }
             else{
-                Log.i("FILES",files[0].toString())
+                Log.i("FILES",files[0])
             }
 
             /*Log.i("BTN","BTN1 OK")
@@ -57,16 +57,18 @@ class HomeFragment : Fragment() {
         }
         save.setOnClickListener {
             val filename = "jidla.json"
-            val fileContents = "test"
+            val fileContents = "funguje"
             context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
                 it?.write(fileContents?.toByteArray())
             }
         }
 
         laod.setOnClickListener {
-            context?.openFileInput("jidla.json")?.bufferedReader()?.readLines()
+            jidla = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
+            jidla = jidla.subSequence(1 , jidla.length-1).toString() //convert output back to string, it returns [string]
             Log.i("JSON", jidla)
         }
+//TODO pri zalozeni uzivatele se vytvori prazdny json a stahne se zradlo, pri smazani se smaze a vytvori znova prazdej
 
 
         return view
