@@ -44,11 +44,6 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         preferences = getPreferences(Context.MODE_PRIVATE)
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
@@ -62,7 +57,18 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         //**********************************************************************************
         //dalsi kod tady
-        /*val intent = Intent(this,GetJson::getJson.javaClass)
+        if (this.getSharedPreferences("first", Context.MODE_PRIVATE).getBoolean("isFirst", true)){
+            val intentFirst = Intent(this,FirstSetup::class.java)
+            startActivity(intentFirst)
+        }
+
+
+
+
+
+
+
+    /*val intent = Intent(this,GetJson::getJson.javaClass)
         val alarmManager =
             this.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val pendingIntent =

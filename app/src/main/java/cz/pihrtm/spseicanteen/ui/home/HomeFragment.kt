@@ -1,6 +1,7 @@
 package cz.pihrtm.spseicanteen.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import cz.pihrtm.spseicanteen.FirstSetup
 import cz.pihrtm.spseicanteen.R
 
 
@@ -26,7 +28,12 @@ class HomeFragment : Fragment() {
         val button: Button = view.findViewById(R.id.button)
         val save: Button = view.findViewById(R.id.buttonsave)
         val laod: Button = view.findViewById(R.id.buttonload)
+        val firstopenbtn: Button = view.findViewById(R.id.openloginbtn)
         var jidla: String
+        firstopenbtn.setOnClickListener {
+            val intentus = Intent(context, FirstSetup::class.java)
+            startActivity(intentus)
+        }
         button.setOnClickListener {
             /*val repeatTime = 10 //Repeat alarm time in seconds
 

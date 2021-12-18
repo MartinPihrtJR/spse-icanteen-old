@@ -24,4 +24,6 @@
     <string name="lgn_field_name">Jméno</string>
     <string name="lgn_field_pwd">Heslo</string>
     <string name="lgn_btn_save">Uložit a přihlásit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
