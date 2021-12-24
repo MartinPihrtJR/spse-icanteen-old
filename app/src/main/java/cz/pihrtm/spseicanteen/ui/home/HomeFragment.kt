@@ -33,8 +33,13 @@ class HomeFragment : Fragment() {
         val firstopenbtn: Button = view.findViewById(R.id.openloginbtn)
         var jidla: String
         firstopenbtn.setOnClickListener {
-            val intentus = Intent(context, FirstSetup::class.java)
-            startActivity(intentus)
+            val sharedPref = context?.getSharedPreferences("first", Context.MODE_PRIVATE)
+            if (sharedPref != null) {
+                with(sharedPref.edit()) {
+                    putBoolean("isFirst", true)
+                    apply()
+                }
+            }
         }
         button.setOnClickListener {
             /*val repeatTime = 10 //Repeat alarm time in seconds

@@ -5,19 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import cz.pihrtm.spseicanteen.ui.user.UserFragment
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,11 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     var preferences: SharedPreferences? = null
 
-    fun replaceUserFragment() {
-        Log.i("replaceFragment","OK")
-        val usrfrgmnt: Fragment = UserFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, usrfrgmnt).commit()
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +43,6 @@ class MainActivity : AppCompatActivity() {
                         R.id.nav_user,
                 ), drawerLayout
         )
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         //**********************************************************************************
@@ -56,6 +50,9 @@ class MainActivity : AppCompatActivity() {
         if (this.getSharedPreferences("first", Context.MODE_PRIVATE).getBoolean("isFirst", true)){
             val intentFirst = Intent(this, FirstSetup::class.java)
             startActivity(intentFirst)
+            Handler().postDelayed({
+                replaceUserFragment()
+            }, 500)
         }
 
 
@@ -83,6 +80,15 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+    fun replaceUserFragment() {
+        Log.i("replaceFragment", "OK")
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        navView.menu.getItem(0).isChecked = false;
+        navView.menu.getItem(3).isChecked = true;
+        val navController = findNavController(R.id.nav_host_fragment)
+        navController.navigate(R.id.nav_user)
+    }
+
 
 
 

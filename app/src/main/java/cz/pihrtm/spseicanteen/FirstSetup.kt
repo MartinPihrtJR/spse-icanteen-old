@@ -1,17 +1,14 @@
 package cz.pihrtm.spseicanteen
 
-import android.app.Activity
+
+import android.app.ActivityManager
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.viewpager2.widget.ViewPager2
-import cz.pihrtm.spseicanteen.ui.home.HomeFragment
-import cz.pihrtm.spseicanteen.ui.user.UserFragment as UserFragment
+import com.google.android.material.internal.ContextUtils.getActivity
 
 
 class FirstSetup : AppCompatActivity() {
@@ -26,9 +23,6 @@ class FirstSetup : AppCompatActivity() {
         )
         val adapter = ViewPagerAdapter(fragments, this)
         viewpager.adapter = adapter
-
-
-
     }
 
     override fun finish() {
@@ -45,10 +39,7 @@ class FirstSetup : AppCompatActivity() {
                 apply()
             }
         }
-        //TODO zavolat funkci replaceUserFragment
-        Handler().postDelayed({
-            super.finish()
-        }, 500)
+        super.finish()
 
     }
 
