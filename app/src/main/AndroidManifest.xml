@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SPŠEICanteen">
-        <activity android:name=".FirstSetup"></activity>
+        <activity android:name=".FirstSetup"
+            android:theme="@style/Theme.SPŠEICanteen.NoActionBar"></activity>
 
         <activity
             android:name=".MainActivity"

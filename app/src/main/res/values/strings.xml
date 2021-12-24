@@ -7,6 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Nastavení</string>
     <string name="service_name">Stažení obědnávek</string>
+    <string name="onBack">Je nutno dokončit proces přihlášení</string>
 
     <string name="menu_objednavky">Moje objednávky</string>
     <string name="menu_notif">Oznámení</string>
@@ -24,6 +25,11 @@
     <string name="lgn_field_name">Jméno</string>
     <string name="lgn_field_pwd">Heslo</string>
     <string name="lgn_btn_save">Uložit a přihlásit</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lgn_btn_login">Přihlásit se</string>
+    <string name="welcome1_title">Vítejte!</string>
+    <string name="welcome2_title">Funkce</string>
+    <string name="welcome3_title">Už to skoro je!</string>
+    <string name="welcome3_description">Abyste aplikaci mohli používat, je třeba se přihlásit k vašemu stravovacímu účtu. (Aplikace data s nikým nesdílí a používá je čistě k funkčnosti.)</string>
+    <string name="welcome2_description">Aplikace za Vás automaticky obědná jídla, pošle vám oznámení s obědem, na domovské obrazovce vám pomocí widgetu ukáže co máte dnes i zítra k obědu a v budoucnu možná mnohem víc! Apliakce potřebuje přístup k Internetu aby mohla stahovat objednaná jídla.</string>
+    <string name="welcome1_description">Díky za stažení aplikace, která Vám usnadní život! Pokud Vám bude sloužit dobře, budu rád za recenzi. Aplikaci budu dále aktualizovat a přidávat do ní další funkce. Přejeďte prstem doleva pro pokračování...</string>
 </resources>
