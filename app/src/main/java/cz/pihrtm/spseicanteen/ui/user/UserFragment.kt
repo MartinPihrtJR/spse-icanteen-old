@@ -1,10 +1,12 @@
 package cz.pihrtm.spseicanteen.ui.user
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -53,6 +55,9 @@ class UserFragment : Fragment() {
                 lgnUser.text = sharedPref?.getString("savedName","-")
                 fieldUser.text = null
                 fieldPwd.text = null
+                fieldPwd.clearFocus()
+                fieldUser.clearFocus()
+                hideKeyboard()
                 Toast.makeText(context,getString(R.string.field_saved),2.toInt()).show()
             }
 
@@ -68,9 +73,24 @@ class UserFragment : Fragment() {
             lgnUser.text = sharedPref?.getString("savedName","-")
             fieldUser.text = null
             fieldPwd.text = null
+            fieldPwd.clearFocus()
+            fieldUser.clearFocus()
+            hideKeyboard()
             Toast.makeText(context,getString(R.string.field_clear),2.toInt()).show()
         }
         //editor.remove("key")
         return view
+    }
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
