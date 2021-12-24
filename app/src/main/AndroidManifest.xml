@@ -29,6 +29,7 @@
             </intent-filter>
         </receiver>
 
+
         <service
             android:name=".GetJson"
             android:icon="@drawable/ic_jidla"

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.StrictMode
 import android.util.Log
 import org.json.JSONArray
-import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -32,9 +31,6 @@ class GetJson : BroadcastReceiver() {
         val objednej = context?.getSharedPreferences("settings", Context.MODE_PRIVATE)?.getString("objednej", "0")
         val apikey = 1234
         var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&objednej=$objednej"
-        /*Log.i("CREDS", "jméno: $name")
-        Log.i("CREDS", "heslo $pwd")
-        Log.i("FULLURL", fulladdr)*/
         var output = getDataFromUrl(fulladdr)
         Log.i("DATAint", output)
         val mainObject = JSONArray(output)
@@ -47,7 +43,7 @@ class GetJson : BroadcastReceiver() {
             Log.i("DATUM",datum)
             Log.i("JIDLO",jidlo)
         }
-        val filename = "jidla"
+        val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(fileContents?.toByteArray())

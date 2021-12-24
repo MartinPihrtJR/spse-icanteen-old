@@ -8,6 +8,7 @@
     <string name="action_settings">Nastavení</string>
     <string name="service_name">Stažení obědnávek</string>
     <string name="onBack">Je nutno dokončit proces přihlášení</string>
+    <string name="notLoggedIn">Nepřihlášen</string>
 
     <string name="menu_objednavky">Moje objednávky</string>
     <string name="menu_notif">Oznámení</string>

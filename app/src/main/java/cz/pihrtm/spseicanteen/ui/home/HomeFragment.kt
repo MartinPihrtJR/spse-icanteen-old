@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
         val laod: Button = view.findViewById(R.id.buttonload)
         val firstopenbtn: Button = view.findViewById(R.id.openloginbtn)
         var jidla: String
+        var DEBUGjsonText: TextView = view.findViewById(R.id.jsonView)
         firstopenbtn.setOnClickListener {
             val sharedPref = context?.getSharedPreferences("first", Context.MODE_PRIVATE)
             if (sharedPref != null) {
@@ -81,6 +83,7 @@ class HomeFragment : Fragment() {
             jidla = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
             jidla = jidla.subSequence(1 , jidla.length-1).toString() //convert output back to string, it returns [string]
             Log.i("JSON", jidla)
+            DEBUGjsonText.text = jidla
         }
 //TODO pri zalozeni uzivatele se vytvori prazdny json a stahne se zradlo, pri smazani se smaze a vytvori znova prazdej
 
