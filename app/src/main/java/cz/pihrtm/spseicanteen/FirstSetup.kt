@@ -28,7 +28,7 @@ class FirstSetup : AppCompatActivity() {
     override fun finish() {
 
         val filename = "jidla.json"
-        val fileContents = ""
+        val fileContents = "[{\"err\":\"not created\"}]"
         this.openFileOutput(filename, Context.MODE_PRIVATE).use {
              it?.write(fileContents.toByteArray())
         }

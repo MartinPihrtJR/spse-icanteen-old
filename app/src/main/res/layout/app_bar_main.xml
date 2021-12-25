@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.SPŠEICanteen.AppBarOverlay">
@@ -16,7 +17,20 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.SPŠEICanteen.PopupOverlay" />
+            app:popupTheme="@style/Theme.SPŠEICanteen.PopupOverlay">
+
+            <Button
+                android:id="@+id/nav_refresh"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:foreground="@drawable/ic_obnovit"
+                android:foregroundTint="@android:color/white"
+                android:textColor="@color/black" />
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

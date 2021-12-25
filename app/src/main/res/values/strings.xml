@@ -5,7 +5,7 @@
     <string name="nav_header_title">SPŠE iCanteen</string>
     <string name="nav_header_subtitle">pihrtm</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Nastavení</string>
+    <string name="action_refresh">Obnovit</string>
     <string name="service_name">Stažení obědnávek</string>
     <string name="onBack">Je nutno dokončit proces přihlášení</string>
     <string name="notLoggedIn">Nepřihlášen</string>
@@ -22,6 +22,7 @@
     <string name="loadingFoodInJsonError">Špatné přihlašovací údaje</string>
     <string name="unknownError">Neznámá chyba</string>
     <string name="internetError">Nelze se připojit k síti</string>
+    <string name="action_updating">Aktualizuji...</string>
 
     <string name="menu_objednavky">Moje objednávky</string>
     <string name="menu_notif">Oznámení</string>

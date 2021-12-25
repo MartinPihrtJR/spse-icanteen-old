@@ -34,7 +34,7 @@ class GetJson : BroadcastReceiver() {
         val objednej = context?.getSharedPreferences("settings", Context.MODE_PRIVATE)?.getString("objednej", "null")
         val apikey = 1234
         var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
-        var output = getDataFromUrl(fulladdr)
+        var output = getDataFromUrl(fulladdr).toString()
         Log.i("DATAint", output)
         val filename = "jidla.json"
         val fileContents = output

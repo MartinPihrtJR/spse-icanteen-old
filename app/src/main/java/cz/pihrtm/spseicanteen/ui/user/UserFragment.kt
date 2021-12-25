@@ -16,6 +16,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import cz.pihrtm.spseicanteen.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.IOException
@@ -24,17 +28,21 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.net.ssl.HttpsURLConnection
 
 class UserFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
-
+    val job = Job()
+    val uiScope = CoroutineScope(Dispatchers.Main + job)
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         val view: View = inflater.inflate(R.layout.fragment_user, container, false)
         val lgnUser: TextView = view.findViewById(R.id.text_currentpost)
@@ -46,8 +54,7 @@ class UserFragment : Fragment() {
         var name = "null"
         var pwd = "null"
 
-        val loggedUsr = sharedPref?.getString("savedName","-")
-        lgnUser.text = loggedUsr
+
         //********************************
         saveBtn.setOnClickListener {
             name = fieldUser.text.toString()
@@ -63,6 +70,7 @@ class UserFragment : Fragment() {
                         apply()
                     }
                 }
+                val loggedUsr = sharedPref?.getString("savedName",name)
                 lgnUser.text = loggedUsr
                 fieldUser.text = null
                 fieldPwd.text = null
@@ -70,7 +78,9 @@ class UserFragment : Fragment() {
                 fieldUser.clearFocus()
                 hideKeyboard()
                 Toast.makeText(context,getString(R.string.field_saved),Toast.LENGTH_SHORT).show()
-                getJsonOnetime(context)
+                uiScope.launch(Dispatchers.IO) {
+                    getJsonOnetime(context)
+                }
             }
 
         }
@@ -109,7 +119,7 @@ class UserFragment : Fragment() {
     //stahnuti jsonu
     fun getJsonOnetime(context: Context?){
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-
+        val preferences = context?.getSharedPreferences("update",Context.MODE_PRIVATE)
         StrictMode.setThreadPolicy(policy)
         Log.d("JSON", "OK")
         val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
@@ -118,7 +128,7 @@ class UserFragment : Fragment() {
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
         val apikey = 1234
         var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
-        var output = getDataFromUrl(fulladdr)
+        var output: String = getDataFromUrl(fulladdr).toString()
         Log.i("DATAint", output)
         val mainObject = JSONArray(output)
         val delkajson = mainObject.length()-1
@@ -127,6 +137,15 @@ class UserFragment : Fragment() {
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(fileContents?.toByteArray())
+        }
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
+        val lastUpdate = current.format(formatter)
+        if (preferences != null) {
+            with (preferences.edit()) {
+                putString("lastDate", lastUpdate)
+                apply()
+            }
         }
     }
 
@@ -163,5 +182,10 @@ class UserFragment : Fragment() {
             e.printStackTrace()
         }
         return result
+    }
+
+    override fun onDestroy(){
+        job.cancel()
+        super.onDestroy()
     }
 }

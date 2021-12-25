@@ -35,7 +35,6 @@
             android:icon="@drawable/ic_jidla"
             android:label="@string/service_name"
             android:permission="android.permission.BIND_JOB_SERVICE">
-            >
         </service>
     </application>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
