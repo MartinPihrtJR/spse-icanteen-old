@@ -36,13 +36,7 @@ class GetJson : BroadcastReceiver() {
         val mainObject = JSONArray(output)
 
         val delkajson = mainObject.length()-1
-        for (i in 0..delkajson){
-            val obed = mainObject.getJSONObject(i)
-            val datum: String = obed.getString("datum")
-            val jidlo: String = obed.getString("jidlo")
-            Log.i("DATUM",datum)
-            Log.i("JIDLO",jidlo)
-        }
+
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {

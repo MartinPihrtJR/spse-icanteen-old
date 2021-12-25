@@ -9,6 +9,11 @@
     <string name="service_name">Stažení obědnávek</string>
     <string name="onBack">Je nutno dokončit proces přihlášení</string>
     <string name="notLoggedIn">Nepřihlášen</string>
+    <string name="noFoodData">Oběd: Žádná data!</string>
+    <string name="noSoupData">Polévka: Žádná data!</string>
+    <string name="titleToday">Dnes:</string>
+    <string name="titleTomorrow">Zítra:</string>
+    <string name="title2Tomorrow">Pozítří:</string>
 
     <string name="menu_objednavky">Moje objednávky</string>
     <string name="menu_notif">Oznámení</string>

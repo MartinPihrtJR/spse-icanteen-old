@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import cz.pihrtm.spseicanteen.FirstSetup
 import cz.pihrtm.spseicanteen.R
 import cz.pihrtm.spseicanteen.ui.user.UserFragment
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class HomeFragment : Fragment() {
@@ -25,67 +27,24 @@ class HomeFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
-        val button: Button = view.findViewById(R.id.button)
-        val save: Button = view.findViewById(R.id.buttonsave)
-        val laod: Button = view.findViewById(R.id.buttonload)
-        val firstopenbtn: Button = view.findViewById(R.id.openloginbtn)
-        var jidla: String
-        var DEBUGjsonText: TextView = view.findViewById(R.id.jsonView)
-        firstopenbtn.setOnClickListener {
-            val sharedPref = context?.getSharedPreferences("first", Context.MODE_PRIVATE)
-            if (sharedPref != null) {
-                with(sharedPref.edit()) {
-                    putBoolean("isFirst", true)
-                    apply()
-                }
-            }
+        var json = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
+        json = json.subSequence(1 , json.length-1).toString() //convert output back to string, it returns [string]
+        Log.d("JSON", json)
+        var mainObject = JSONArray(json)
+        if (JSONObject(mainObject[0].toString()).has("err")){
+
+            var errorType = mainObject[0].toString()
+            errorType = JSONObject(errorType).getString("err")
+            Log.i("JSONerr", errorType)
+            //TODO skryjou se dolni zradla, vypisou se chyby
         }
-        button.setOnClickListener {
-            /*val repeatTime = 10 //Repeat alarm time in seconds
-
-            val processTimer: AlarmManager? = context?.getSystemService(ALARM_SERVICE) as AlarmManager?
-            val intent = Intent(context, GetJson::class.java)
-            val pendingIntent =
-                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-            processTimer!!.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(),
-                (repeatTime * 1000).toLong(),
-                pendingIntent
-            )*/
-            var files: Array<String> = requireContext().fileList()
-            if (files.isEmpty()){
-                Log.i("FILES","ERR")
-            }
-            else{
-                Log.i("FILES",files[0])
-            }
-
-            /*Log.i("BTN","BTN1 OK")
-            context?.openFileInput("jidla.json")?.bufferedReader()?.useLines { lines ->
-                jidla = lines.toString()
-            }
-            Log.i("JSON", jidla)*/
-
-        }
-        save.setOnClickListener {
-            val filename = "jidla.json"
-            val fileContents = "funguje"
-            context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-                it?.write(fileContents?.toByteArray())
-            }
+        else{
+            //TODO vyparsoujou se zradla ke 3 dnum
         }
 
-        laod.setOnClickListener {
-            jidla = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
-            jidla = jidla.subSequence(1 , jidla.length-1).toString() //convert output back to string, it returns [string]
-            Log.i("JSON", jidla)
-            DEBUGjsonText.text = jidla
-        }
-//TODO pri zalozeni uzivatele se vytvori prazdny json a stahne se zradlo, pri smazani se smaze a vytvori znova prazdej
 
 
         return view

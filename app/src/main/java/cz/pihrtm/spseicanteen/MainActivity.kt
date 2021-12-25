@@ -63,27 +63,17 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        val repeatTime = 10 //Repeat alarm time in seconds
 
-
-
-
-
-
-
-    val intent = Intent(this,GetJson::onReceive.javaClass)
-        val alarmManager =
-            this.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val processTimer: AlarmManager? = this.getSystemService(ALARM_SERVICE) as AlarmManager?
+        val intent = Intent(this, GetJson::class.java)
         val pendingIntent =
-            PendingIntent.getService(this, 1, intent,
-                PendingIntent.FLAG_NO_CREATE)
-        if (pendingIntent != null && alarmManager != null) {
-            alarmManager.cancel(pendingIntent)
-        }
-        alarmManager?.setInexactRepeating(
-            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR,
-            AlarmManager.INTERVAL_HOUR,
-            pendingIntent
+                PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        processTimer!!.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis(),
+                (repeatTime * 1000).toLong(),
+                pendingIntent
         )
 
 
