@@ -13,6 +13,8 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.net.ssl.HttpsURLConnection
 
 
@@ -22,26 +24,33 @@ kdyz vrati none, spatny prihlasovaci udaje
 class GetJson : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-
         StrictMode.setThreadPolicy(policy)
         Log.d("JSON", "OK")
+
+        val preferences = context?.getSharedPreferences("update",Context.MODE_PRIVATE)
         val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
         val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
-        val objednej = context?.getSharedPreferences("settings", Context.MODE_PRIVATE)?.getString("objednej", "0")
+        val objednej = context?.getSharedPreferences("settings", Context.MODE_PRIVATE)?.getString("objednej", "null")
         val apikey = 1234
-        var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&objednej=$objednej"
+        var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
         var output = getDataFromUrl(fulladdr)
         Log.i("DATAint", output)
-        val mainObject = JSONArray(output)
-
-        val delkajson = mainObject.length()-1
-
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(fileContents?.toByteArray())
         }
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
+        val lastUpdate = current.format(formatter)
+        if (preferences != null) {
+            with (preferences.edit()) {
+                putString("lastDate", lastUpdate)
+                apply()
+            }
+        }
+
 
     }
 

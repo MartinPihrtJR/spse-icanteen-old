@@ -77,6 +77,10 @@ class MainActivity : AppCompatActivity() {
         )
 
 
+        //TODO kdyz neni internet, vypiseme chybu (Toast)
+
+
+
     }
     private fun replaceUserFragment() {
         Log.i("replaceFragment", "OK")

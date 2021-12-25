@@ -11,9 +11,17 @@
     <string name="notLoggedIn">Nepřihlášen</string>
     <string name="noFoodData">Oběd: Žádná data!</string>
     <string name="noSoupData">Polévka: Žádná data!</string>
+    <string name="noFoodPrefix">Oběd: </string>
+    <string name="noSoupPrefix">Polévka: </string>
     <string name="titleToday">Dnes:</string>
     <string name="titleTomorrow">Zítra:</string>
     <string name="title2Tomorrow">Pozítří:</string>
+    <string name="lastUpdated">Naposledy aktualizováno:</string>
+    <string name="notYetUpdated">nikdy</string>
+    <string name="stravaEmpty">Server SPŠE neodpovídá</string>
+    <string name="loadingFoodInJsonError">Špatné přihlašovací údaje</string>
+    <string name="unknownError">Neznámá chyba</string>
+    <string name="internetError">Nelze se připojit k síti</string>
 
     <string name="menu_objednavky">Moje objednávky</string>
     <string name="menu_notif">Oznámení</string>
