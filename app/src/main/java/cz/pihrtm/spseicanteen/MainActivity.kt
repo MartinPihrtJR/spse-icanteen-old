@@ -61,20 +61,25 @@ class MainActivity : AppCompatActivity() {
                 replaceUserFragment()
             }, 500)
         }
+        else{
+            if (this.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName", null) != null){
+
+                val repeatTime = 3600 //Repeat alarm time in seconds
+
+                val processTimer: AlarmManager? = this.getSystemService(ALARM_SERVICE) as AlarmManager?
+                val intent = Intent(this, GetJson::class.java)
+                val pendingIntent =
+                        PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                processTimer!!.setRepeating(
+                        AlarmManager.RTC_WAKEUP,
+                        System.currentTimeMillis(),
+                        (repeatTime * 1000).toLong(),
+                        pendingIntent
+                )
+            }
+        }
 
 
-        val repeatTime = 10 //Repeat alarm time in seconds
-
-        val processTimer: AlarmManager? = this.getSystemService(ALARM_SERVICE) as AlarmManager?
-        val intent = Intent(this, GetJson::class.java)
-        val pendingIntent =
-                PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        processTimer!!.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(),
-                (repeatTime * 1000).toLong(),
-                pendingIntent
-        )
 
 
         //TODO kdyz neni internet, vypiseme chybu (Toast)
