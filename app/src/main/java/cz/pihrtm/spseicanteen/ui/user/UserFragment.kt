@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.navigation.NavigationView
 import cz.pihrtm.spseicanteen.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +39,7 @@ class UserFragment : Fragment() {
     private lateinit var userViewModel: UserViewModel
     val job = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + job)
+    private lateinit var navButton:Button
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -54,8 +57,11 @@ class UserFragment : Fragment() {
         var name = "null"
         var pwd = "null"
 
-
         //********************************
+        val loggedUsr = sharedPref?.getString("savedName","-")
+        lgnUser.text = loggedUsr
+
+
         saveBtn.setOnClickListener {
             name = fieldUser.text.toString()
             pwd = fieldPwd.text.toString()
@@ -102,6 +108,7 @@ class UserFragment : Fragment() {
         }
         //editor.remove("key")
         return view
+
     }
     fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
@@ -127,8 +134,8 @@ class UserFragment : Fragment() {
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
         val apikey = 1234
-        var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
-        var output: String = getDataFromUrl(fulladdr).toString()
+        val fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
+        val output: String = getDataFromUrl(fulladdr).toString()
         Log.i("DATAint", output)
         val mainObject = JSONArray(output)
         val delkajson = mainObject.length()-1

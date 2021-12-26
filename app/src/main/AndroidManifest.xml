@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SPŠEICanteen">
-        <activity android:name=".FirstSetup"
-            android:theme="@style/Theme.SPŠEICanteen.NoActionBar"></activity>
+        <activity
+            android:name=".FirstSetup"
+            android:theme="@style/Theme.SPŠEICanteen.NoActionBar" />
 
         <activity
             android:name=".MainActivity"
@@ -22,24 +23,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".AppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
 
         <receiver android:name=".GetJson">
             <intent-filter>
-                <action android:name="GetJson"></action>
+                <action android:name="GetJson" />
             </intent-filter>
         </receiver>
-
 
         <service
             android:name=".GetJson"
             android:icon="@drawable/ic_jidla"
             android:label="@string/service_name"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-        </service>
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
     </application>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.navigation.NavigationView
 import cz.pihrtm.spseicanteen.R
 import org.json.JSONArray
 import org.json.JSONObject
@@ -37,6 +39,7 @@ class HomeFragment : Fragment() {
         val titleFood2Tomorrow: TextView = view.findViewById(R.id.titleFood2Tomorrow)
         val lastDate: TextView = view.findViewById(R.id.lastUpdated)
 
+
         if (context?.getSharedPreferences("first", Context.MODE_PRIVATE)?.getBoolean("isFirst",true)==true){
             //nic
         }
@@ -45,9 +48,11 @@ class HomeFragment : Fragment() {
             json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
             Log.d("JSON", json)
             var mainObject = JSONArray(json)
+            val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
+            val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)
 
             if (JSONObject(mainObject[0].toString()).has("err")) {
-
+                layoutPreferences?.edit()?.putBoolean("widgetHide",true)?.apply()
                 var errorType = mainObject[0].toString()
                 errorType = JSONObject(errorType).getString("err")
                 Log.i("JSONerr", errorType)
@@ -70,6 +75,7 @@ class HomeFragment : Fragment() {
                 }
 
             } else {
+                layoutPreferences?.edit()?.putBoolean("widgetHide",false)?.apply()
                 nextLayout.visibility = View.VISIBLE
                 todayLayout.visibility = View.VISIBLE
                 val current = LocalDateTime.now()
@@ -84,10 +90,19 @@ class HomeFragment : Fragment() {
                     val obed = mainObject.getJSONObject(i)
                     val datum: String = obed.getString("datum")
                     val jidlo: String = obed.getString("jidlo")
+                    val id: String = obed.getString("popis")
                     val polevka: String = obed.getString("polevka")
                     if (datum == formatedToday) {
                         titleFoodToday.text = jidlo
                         titleSoupToday.text = polevka
+                        if (foodPreferences != null) {
+                            with (foodPreferences.edit()) {
+                                putString("TodayFood", jidlo)
+                                putString("TodaySoup", polevka)
+                                putString("TodayPopis", id)
+                                apply()
+                            }
+                        }
                     }
                     if (datum == formatedTomorrow) {
                         titleFoodTomorrow.text = jidlo

@@ -154,7 +154,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -254,9 +253,10 @@ class MainActivity : AppCompatActivity() {
             json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
             Log.d("JSON", json)
             var mainObject = JSONArray(json)
-
+            val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
+            val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)
             if (JSONObject(mainObject[0].toString()).has("err")) {
-
+                layoutPreferences?.edit()?.putBoolean("widgetHide",true)?.apply()
                 var errorType = mainObject[0].toString()
                 errorType = JSONObject(errorType).getString("err")
                 Log.i("JSONerr", errorType)
@@ -279,6 +279,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             } else {
+                layoutPreferences?.edit()?.putBoolean("widgetHide",false)?.apply()
                 nextLayout.visibility = View.VISIBLE
                 todayLayout.visibility = View.VISIBLE
                 val current = LocalDateTime.now()
@@ -293,10 +294,19 @@ class MainActivity : AppCompatActivity() {
                     val obed = mainObject.getJSONObject(i)
                     val datum: String = obed.getString("datum")
                     val jidlo: String = obed.getString("jidlo")
+                    val id: String = obed.getString("popis")
                     val polevka: String = obed.getString("polevka")
                     if (datum == formatedToday) {
                         titleFoodToday.text = jidlo
                         titleSoupToday.text = polevka
+                        if (foodPreferences != null) {
+                            with (foodPreferences.edit()) {
+                                putString("TodayFood", jidlo)
+                                putString("TodaySoup", polevka)
+                                putString("TodayPopis", id)
+                                apply()
+                            }
+                        }
                     }
                     if (datum == formatedTomorrow) {
                         titleFoodTomorrow.text = jidlo
