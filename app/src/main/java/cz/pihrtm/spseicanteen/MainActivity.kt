@@ -178,7 +178,6 @@ class MainActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         val preferences = context?.getSharedPreferences("update",Context.MODE_PRIVATE)
         StrictMode.setThreadPolicy(policy)
-        Log.d("JSON", "OK")
         val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
         val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
@@ -186,10 +185,7 @@ class MainActivity : AppCompatActivity() {
         val apikey = 1234
         var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
         var output: String = getDataFromUrl(fulladdr).toString()
-        Log.i("DATAint", output)
         val mainObject = JSONArray(output)
-        val delkajson = mainObject.length()-1
-        Log.i("JSONcontent",output)
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
@@ -251,7 +247,6 @@ class MainActivity : AppCompatActivity() {
         else {
             var json = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
             json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
-            Log.d("JSON", json)
             var mainObject = JSONArray(json)
             val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
             val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)

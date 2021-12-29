@@ -54,8 +54,8 @@ class UserFragment : Fragment() {
         val saveBtn: Button = view.findViewById(R.id.buttonLgnSave)
         val clearBtn: Button = view.findViewById(R.id.buttonLgnClear)
         val sharedPref = activity?.getSharedPreferences("creds", Context.MODE_PRIVATE)
-        var name = "null"
-        var pwd = "null"
+        var name: String
+        var pwd: String
 
         //********************************
         val loggedUsr = sharedPref?.getString("savedName","-")
@@ -138,7 +138,6 @@ class UserFragment : Fragment() {
         val output: String = getDataFromUrl(fulladdr).toString()
         Log.i("DATAint", output)
         val mainObject = JSONArray(output)
-        val delkajson = mainObject.length()-1
         Log.i("JSONcontent",output)
         val filename = "jidla.json"
         val fileContents = output

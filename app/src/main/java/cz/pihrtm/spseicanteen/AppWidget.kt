@@ -33,8 +33,8 @@ class AppWidget : AppWidgetProvider() {
             views.setViewVisibility(R.id.widgetSoupTitle, View.VISIBLE)
             views.setViewVisibility(R.id.widgetTodayTitle, View.VISIBLE)
             views.setViewVisibility(R.id.widgetErrorTitle, View.GONE)
-            views.setTextViewText(R.id.widgetTodayTitle, "$popis $food")
-            views.setTextViewText(R.id.widgetSoupTitle, soup)
+            views.setTextViewText(R.id.widgetTodayTitle, "$popis: $food")
+            views.setTextViewText(R.id.widgetSoupTitle, context.getString(R.string.noSoupPrefix)+ " $soup")
         }
     }
 

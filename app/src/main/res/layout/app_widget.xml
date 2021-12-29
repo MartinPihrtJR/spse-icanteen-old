@@ -1,10 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/side_nav_bar"
     android:padding="@dimen/widget_margin"
     android:theme="@style/ThemeOverlay.SPŠEICanteen.AppWidgetContainer"
     >
+
 
     <TextView
         android:id="@+id/widgetTodayTitle"
@@ -13,7 +15,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/noFoodData"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/widgetSoupTitle"
@@ -23,7 +26,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/noSoupData"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/widgetErrorTitle"

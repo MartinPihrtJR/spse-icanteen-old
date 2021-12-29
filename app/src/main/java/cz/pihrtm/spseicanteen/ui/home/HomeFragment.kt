@@ -46,7 +46,6 @@ class HomeFragment : Fragment() {
         else {
             var json = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
             json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
-            Log.d("JSON", json)
             var mainObject = JSONArray(json)
             val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
             val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)

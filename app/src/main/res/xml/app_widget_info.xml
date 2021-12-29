@@ -7,4 +7,7 @@
     android:previewImage="@mipmap/ic_launcher_foreground"
     android:resizeMode="horizontal"
     android:updatePeriodMillis="3600000"
-    android:widgetCategory="home_screen"></appwidget-provider>
+    android:widgetCategory="home_screen">
+
+    <!--TODO minimalni velikost widgetu se musi zmenit aby se to tam veslo... -->
+</appwidget-provider>

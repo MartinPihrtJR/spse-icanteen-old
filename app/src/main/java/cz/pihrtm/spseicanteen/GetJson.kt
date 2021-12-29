@@ -3,9 +3,9 @@ package cz.pihrtm.spseicanteen
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.StrictMode
 import android.util.Log
-import android.view.View
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -15,6 +15,8 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
+import java.time.DayOfWeek
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.net.ssl.HttpsURLConnection
@@ -26,41 +28,117 @@ kdyz vrati none, spatny prihlasovaci udaje
 class GetJson : BroadcastReceiver() {
 
     private lateinit var json: String
+    private lateinit var fulladdr: String
+    private lateinit var addr: String
+    private lateinit var name:String
+    private lateinit var pwd :String
+    private var apikey =  1234
+    private lateinit var preferences:SharedPreferences
+
     override fun onReceive(context: Context?, intent: Intent?) {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        Log.d("JSON", "OK")
+        preferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)!!
+        addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
+        name = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing").toString()
+        pwd = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing").toString()
+        val mode = context.getSharedPreferences("autoOrder", Context.MODE_PRIVATE)?.getInt("mode", 0)
+        val prikaz: String
+        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
+        when{
+            (mode==0)->{
+                getFood(context)
+            }
+            (mode==1)->{
+                orderFood(context,3)
+                Log.i("Ordermode","3")
+            }
+            (mode==2)->{
+                orderFood(context, 4)
+                Log.i("Ordermode","4")
+            }
+            (mode==3)->{
+                orderFood(context, 5)
+                Log.i("Ordermode","5")
+            }
+        }
 
-        val preferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
-        val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
-        val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)
-            ?.getString("savedName", "missing")
-        val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)
-            ?.getString("savedPwd", "missing")
-        val objednej = context?.getSharedPreferences("settings", Context.MODE_PRIVATE)
-            ?.getString("objednej", "null")
-        val apikey = 1234
-        var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
-        var output = getDataFromUrl(fulladdr).toString()
-        Log.i("DATAint", output)
+
+
+
+
+
+
+
+    }
+
+    private fun getFood(context: Context?){
+        val output = getDataFromUrl(fulladdr).toString()
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(fileContents?.toByteArray())
+            it?.write(fileContents.toByteArray())
         }
         json = output
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
         val lastUpdate = current.format(formatter)
-        if (preferences != null) {
-            with(preferences.edit()) {
-                putString("lastDate", lastUpdate)
-                apply()
-            }
+        with(preferences.edit()) {
+            putString("lastDate", lastUpdate)
+            apply()
         }
         saveToPrefs(context)
+    }
 
+    private fun orderFood(context: Context?,mode: Int){
+        var output = getDataFromUrl(fulladdr).toString()
+        val filename = "jidla.json"
+        val fileContents = output
+        context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
+            it?.write(fileContents?.toByteArray())
+        }
+        val denvTydnu = LocalDate.now().plusDays(2).dayOfWeek
+        val orderEnabled = when {
+            (denvTydnu==DayOfWeek.SATURDAY)->{
+                false
+            }
+            (denvTydnu==DayOfWeek.SUNDAY)->{
+                false
+            }
+            else->{
+                true
+            }
+        }
+        Log.d("DOW",denvTydnu.toString())
+        var datumobednavky:String
+        var prikaz = "null"
+        if (orderEnabled){
+            val mainObject = JSONArray(output)
 
+            if (!JSONObject(mainObject[0].toString()).has("err")){
+                val current = LocalDateTime.now().plusDays(2)
+                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                val datumobedu = current.format(formatter)
+                val delkajson = mainObject.length() - 1
+                for (i in 0..delkajson) {
+                    val obed = mainObject.getJSONObject(i)
+                    val datum: String = obed.getString("datum")
+                    if (datumobedu!==datum){
+                        val current = LocalDateTime.now().plusDays(2)
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        datumobednavky = current.format(formatter)
+                        prikaz = "$mode,$datumobednavky,make"
+                    }
+                }
+            }
+        }
+        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$prikaz"
+        output = getDataFromUrl(fulladdr).toString()
+        val foodObject = JSONArray(output)
+        if (JSONObject(foodObject[0].toString()).has("food")){
+            fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
+            getFood(context)
+        }
     }
 
 
@@ -103,7 +181,7 @@ class GetJson : BroadcastReceiver() {
     }
 
     private fun saveToPrefs(context: Context?) {
-        var mainObject = JSONArray(json)
+        val mainObject = JSONArray(json)
         val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
         val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)
 
