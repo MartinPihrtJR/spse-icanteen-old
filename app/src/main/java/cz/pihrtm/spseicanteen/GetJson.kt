@@ -1,11 +1,17 @@
 package cz.pihrtm.spseicanteen
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.StrictMode
+import android.provider.Settings.Global.getString
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -34,6 +40,7 @@ class GetJson : BroadcastReceiver() {
     private lateinit var pwd :String
     private var apikey =  1234
     private lateinit var preferences:SharedPreferences
+    private lateinit var CHANNEL_ID: String
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -43,23 +50,104 @@ class GetJson : BroadcastReceiver() {
         name = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing").toString()
         pwd = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing").toString()
         val mode = context.getSharedPreferences("autoOrder", Context.MODE_PRIVATE)?.getInt("mode", 0)
-        val prikaz: String
+        val repeat = context.getSharedPreferences("repeat",Context.MODE_PRIVATE).getInt("repeat",0)
+        val notifPref = context.getSharedPreferences("notif",Context.MODE_PRIVATE)
+        val foodPref = context.getSharedPreferences("savedFood",Context.MODE_PRIVATE)
         fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
-        when{
-            (mode==0)->{
-                getFood(context)
+        createNotificationChannel(context) //create channel for notification
+        var builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_jidla)
+                .setContentTitle("My notification")
+                .setContentText("Much longer text that cannot fit one line...")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        if (repeat == 4){
+            when{
+                (mode==0)->{
+                    getFood(context)
+                }
+                (mode==1)->{
+                    orderFood(context,3)
+                }
+                (mode==2)->{
+                    orderFood(context, 4)
+                }
+                (mode==3)->{
+                    orderFood(context, 5)
+                }
             }
-            (mode==1)->{
-                orderFood(context,3)
-                Log.i("Ordermode","3")
-            }
-            (mode==2)->{
-                orderFood(context, 4)
-                Log.i("Ordermode","4")
-            }
-            (mode==3)->{
-                orderFood(context, 5)
-                Log.i("Ordermode","5")
+            context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",0).apply()
+        }
+        else {
+            val replus = context.getSharedPreferences("repeat",Context.MODE_PRIVATE).getInt("repeat",0) + 1
+            context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",replus).apply()
+        }
+        if (notifPref.getBoolean("newEnabled",false)){
+            val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh")).toString().toInt()
+            when (notifPref.getInt("time",10)){
+                10 -> {
+                    if (hrs==10) {
+                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
+                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                                .setSmallIcon(R.drawable.ic_jidla)
+                                .setContentTitle(title)
+                                .setContentText(description)
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        val notificationId = 852
+                        with(NotificationManagerCompat.from(context)) {
+                            // notificationId is a unique int for each notification that you must define
+                            notify(notificationId, builder.build())
+                        }
+                    }
+                }
+                11 -> {
+                    if (hrs==11) {
+                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
+                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                                .setSmallIcon(R.drawable.ic_jidla)
+                                .setContentTitle(title)
+                                .setContentText(description)
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        val notificationId = 852
+                        with(NotificationManagerCompat.from(context)) {
+                            // notificationId is a unique int for each notification that you must define
+                            notify(notificationId, builder.build())
+                        }
+                    }
+                }
+                12 -> {
+                    if (hrs==12) {
+                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
+                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                                .setSmallIcon(R.drawable.ic_jidla)
+                                .setContentTitle(title)
+                                .setContentText(description)
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        val notificationId = 852
+                        with(NotificationManagerCompat.from(context)) {
+                            // notificationId is a unique int for each notification that you must define
+                            notify(notificationId, builder.build())
+                        }
+                    }
+                }
+                13 -> {
+                    if (hrs==13) {
+                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
+                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                                .setSmallIcon(R.drawable.ic_jidla)
+                                .setContentTitle(title)
+                                .setContentText(description)
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        val notificationId = 852
+                        with(NotificationManagerCompat.from(context)) {
+                            // notificationId is a unique int for each notification that you must define
+                            notify(notificationId, builder.build())
+                        }
+                    }
+                }
             }
         }
 
@@ -67,10 +155,24 @@ class GetJson : BroadcastReceiver() {
 
 
 
-
-
-
     }
+
+    private fun createNotificationChannel(context: Context?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = context?.getString(R.string.channel_name)
+            val descriptionText = context?.getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            CHANNEL_ID = "SPSEiCanteen"
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                    context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
 
     private fun getFood(context: Context?){
         val output = getDataFromUrl(fulladdr).toString()
@@ -133,6 +235,27 @@ class GetJson : BroadcastReceiver() {
             }
         }
         fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$prikaz"
+        val notifPref = context?.getSharedPreferences("notif",Context.MODE_PRIVATE)
+        if (notifPref!!.getBoolean("orderEnabled",false)){
+            val title = context.getString(R.string.autoOrdered) + LocalDateTime.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+            val obed = when (mode) {
+                3 -> {"oběd 1"}
+                4 -> {"oběd 2"}
+                5 -> {"oběd 3"}
+                else -> {"oběd"}
+            }
+            val description = context.getString(R.string.autoOrderedDescr) + obed
+            var builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_jidla)
+                    .setContentTitle(title)
+                    .setContentText(description)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            val notificationId = 852
+            with(NotificationManagerCompat.from(context)) {
+                // notificationId is a unique int for each notification that you must define
+                notify(notificationId, builder.build())
+            }
+        }
         output = getDataFromUrl(fulladdr).toString()
         val foodObject = JSONArray(output)
         if (JSONObject(foodObject[0].toString()).has("food")){

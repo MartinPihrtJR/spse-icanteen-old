@@ -32,6 +32,13 @@
     <string name="autoOrderToast1">Nyní se objednává 1</string>
     <string name="autoOrderToast2">Nyní se objednává 2</string>
     <string name="autoOrderToast3">Nyní se objednává 3</string>
+    <string name="text11">10:00</string>
+    <string name="text1130">11:00</string>
+    <string name="text12">12:00</string>
+    <string name="text1230">13:00</string>
+    <string name="ordered_today">Dnes objednáno: </string>
+    <string name="autoOrdered">Automaticky obědnáno na </string>
+    <string name="autoOrderedDescr">Byl automaticky obědnán </string>
 
     <string name="menu_objednavky">Moje objednávky</string>
     <string name="menu_notif">Oznámení</string>
@@ -55,9 +62,13 @@
     <string name="welcome3_title">Už to skoro je!</string>
     <string name="autoOrderHint">Pokud vyberete funkci automatického objednávání, stávající objednávky nebudou zrušeny. Aplikace automaticky obědná pouze když na den obědnáno není.</string>
     <string name="welcome3_description">Abyste aplikaci mohli používat, je třeba se přihlásit k vašemu stravovacímu účtu. (Aplikace data s nikým nesdílí a používá je čistě k funkčnosti.)</string>
-    <string name="welcome2_description">Aplikace za Vás automaticky obědná jídla, pošle vám oznámení s obědem, na domovské obrazovce vám pomocí widgetu ukáže co máte dnes i zítra k obědu a v budoucnu možná mnohem víc! Apliakce potřebuje přístup k Internetu aby mohla stahovat objednaná jídla.</string>
+    <string name="welcome2_description">Aplikace za Vás automaticky obědná jídla, pošle vám oznámení s obědem, na domovské obrazovce vám pomocí widgetu ukáže co máte dnes i zítra k obědu a v budoucnu možná mnohem víc! Aplikace potřebuje přístup k Internetu aby mohla stahovat objednaná jídla.</string>
     <string name="welcome1_description">Díky za stažení aplikace, která Vám usnadní život! Pokud Vám bude sloužit dobře, budu rád za recenzi. Aplikaci budu dále aktualizovat a přidávat do ní další funkce. Přejeďte prstem doleva pro pokračování...</string>
     <string name="widgetFragment_title">Přidání widgetu</string>
     <string name="widgetFragment_content">Pro přidání widgetu podržte prst na ploše zařízení, vyberte položku "widget" a vyberte widget SPŠE iCanteen.<br></br>Widget zobrazuje jídlo a polévku v aktuální den. <br></br>Widget se aktualizuje automaticky po jedné hodině.</string>
     <string name="add_widget">Přidat widget</string>
+    <string name="channel_name">SPŠEiCanteen channel</string>
+    <string name="channel_description">Notifikace obědnávek</string>
+    <string name="notif_newFood">Oznamovat nová jídla</string>
+    <string name="notif_newOrder">Oznamovat auto obědnávky</string>
 </resources>

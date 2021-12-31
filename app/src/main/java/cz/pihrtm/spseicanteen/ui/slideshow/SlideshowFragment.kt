@@ -35,7 +35,6 @@ class SlideshowFragment : Fragment() {
         val order2: RadioButton = view.findViewById(R.id.autoOrder2)
         val order3: RadioButton = view.findViewById(R.id.autoOrder3)
         //**************************************************************
-        val testbtn: Button = view.findViewById(R.id.button)
         //**********************************
         when {
             sharedPref?.getInt("mode",0)==0 -> {
@@ -66,9 +65,6 @@ class SlideshowFragment : Fragment() {
         order3.setOnClickListener {
             sharedPref?.edit()?.putInt("mode",3)?.apply()
             Toast.makeText(context,getString(R.string.autoOrderToast3),Toast.LENGTH_SHORT).show()
-        }
-        testbtn.setOnClickListener {
-            GetJson::class.java
         }
 
 

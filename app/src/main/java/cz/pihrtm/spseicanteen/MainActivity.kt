@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         else{
             if (this.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName", null) != null){
 
-                val repeatTime = 3600 //Repeat alarm time in seconds
+                val repeatTime = 1200 //Repeat alarm time in seconds - 20 min
 
                 val processTimer: AlarmManager? = this.getSystemService(ALARM_SERVICE) as AlarmManager?
                 val intent = Intent(this, GetJson::class.java)
@@ -185,7 +185,6 @@ class MainActivity : AppCompatActivity() {
         val apikey = 1234
         var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
         var output: String = getDataFromUrl(fulladdr).toString()
-        val mainObject = JSONArray(output)
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
@@ -316,6 +315,8 @@ class MainActivity : AppCompatActivity() {
                     ?.getString("lastDate", getString(R.string.notYetUpdated))
 
             }
-        }
+
+            }
+
     }
 }
