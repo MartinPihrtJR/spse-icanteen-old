@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.os.StrictMode
-import android.util.AttributeSet
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -16,7 +18,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.navigation.NavigationView
 import cz.pihrtm.spseicanteen.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +34,7 @@ import java.net.URLConnection
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.net.ssl.HttpsURLConnection
+
 
 class UserFragment : Fragment() {
 
@@ -53,37 +55,56 @@ class UserFragment : Fragment() {
         val fieldPwd: EditText = view.findViewById(R.id.editTextPwd)
         val saveBtn: Button = view.findViewById(R.id.buttonLgnSave)
         val clearBtn: Button = view.findViewById(R.id.buttonLgnClear)
+        val viewPwdBtn: Button = view.findViewById(R.id.btnViewPwd)
         val sharedPref = activity?.getSharedPreferences("creds", Context.MODE_PRIVATE)
         var name: String
         var pwd: String
 
         //********************************
-        val loggedUsr = sharedPref?.getString("savedName","-")
+        val loggedUsr = sharedPref?.getString("savedName", "-")
         lgnUser.text = loggedUsr
+
+        viewPwdBtn.setOnTouchListener(
+                OnTouchListener { _, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            fieldPwd.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
+                            fieldPwd.setSelection(fieldPwd.text.length)
+                            return@OnTouchListener true
+                        }
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                            fieldPwd.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                            fieldPwd.setSelection(fieldPwd.text.length)
+                            return@OnTouchListener true
+                        }
+                    }
+                    false
+                }
+        )
 
 
         saveBtn.setOnClickListener {
             name = fieldUser.text.toString()
             pwd = fieldPwd.text.toString()
             if (name == "" || pwd == ""){
-                Toast.makeText(context,getString(R.string.field_blank),Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.field_blank), Toast.LENGTH_LONG).show()
             }
             else {
                 if (sharedPref != null) {
-                    with (sharedPref.edit()) {
+                    with(sharedPref.edit()) {
                         putString("savedName", name)
                         putString("savedPwd", pwd)
                         apply()
                     }
                 }
-                val loggedUsr = sharedPref?.getString("savedName",name)
-                lgnUser.text = loggedUsr
+                val loggedInUsr = sharedPref?.getString("savedName", name)
+                lgnUser.text = loggedInUsr
                 fieldUser.text = null
                 fieldPwd.text = null
                 fieldPwd.clearFocus()
                 fieldUser.clearFocus()
                 hideKeyboard()
-                Toast.makeText(context,getString(R.string.field_saved),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.field_saved), Toast.LENGTH_SHORT).show()
                 uiScope.launch(Dispatchers.IO) {
                     getJsonOnetime(context)
                 }
@@ -92,19 +113,19 @@ class UserFragment : Fragment() {
         }
         clearBtn.setOnClickListener {
             if (sharedPref != null) {
-                with (sharedPref.edit()) {
+                with(sharedPref.edit()) {
                     remove("savedName")
                     remove("savedPwd")
                     apply()
                 }
             }
-            lgnUser.text = sharedPref?.getString("savedName","-")
+            lgnUser.text = sharedPref?.getString("savedName", "-")
             fieldUser.text = null
             fieldPwd.text = null
             fieldPwd.clearFocus()
             fieldUser.clearFocus()
             hideKeyboard()
-            Toast.makeText(context,getString(R.string.field_clear),Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.field_clear), Toast.LENGTH_SHORT).show()
         }
         //editor.remove("key")
         return view
@@ -126,7 +147,7 @@ class UserFragment : Fragment() {
     //stahnuti jsonu
     fun getJsonOnetime(context: Context?){
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        val preferences = context?.getSharedPreferences("update",Context.MODE_PRIVATE)
+        val preferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
         StrictMode.setThreadPolicy(policy)
         Log.d("JSON", "OK")
         val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
@@ -137,18 +158,17 @@ class UserFragment : Fragment() {
         val fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
         val output: String = getDataFromUrl(fulladdr).toString()
         Log.i("DATAint", output)
-        val mainObject = JSONArray(output)
-        Log.i("JSONcontent",output)
+        Log.i("JSONcontent", output)
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(fileContents?.toByteArray())
+            it?.write(fileContents.toByteArray())
         }
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
         val lastUpdate = current.format(formatter)
         if (preferences != null) {
-            with (preferences.edit()) {
+            with(preferences.edit()) {
                 putString("lastDate", lastUpdate)
                 apply()
             }

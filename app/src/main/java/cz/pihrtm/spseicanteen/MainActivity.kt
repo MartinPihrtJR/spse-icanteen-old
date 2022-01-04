@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(fileContents?.toByteArray())
+            it?.write(fileContents.toByteArray())
         }
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
@@ -245,78 +245,80 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             var json = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
-            json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
-            var mainObject = JSONArray(json)
-            val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
-            val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)
-            if (JSONObject(mainObject[0].toString()).has("err")) {
-                layoutPreferences?.edit()?.putBoolean("widgetHide",true)?.apply()
-                var errorType = mainObject[0].toString()
-                errorType = JSONObject(errorType).getString("err")
-                Log.i("JSONerr", errorType)
-                nextLayout.visibility = View.GONE
-                todayLayout.visibility = View.GONE
-                if (errorType == "strava empty") {
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = getString(R.string.stravaEmpty)
-                } else if (errorType == "loading food in json error") {
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = getString(R.string.loadingFoodInJsonError)
-                }
-                else if (errorType == "not created") {
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = getString(R.string.notLoggedIn)
-                }
-                else {
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = getString(R.string.unknownError)
-                }
-
-            } else {
-                layoutPreferences?.edit()?.putBoolean("widgetHide",false)?.apply()
-                nextLayout.visibility = View.VISIBLE
-                todayLayout.visibility = View.VISIBLE
-                val current = LocalDateTime.now()
-                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                val formatedToday = current.format(formatter)
-                val tomorrow = LocalDateTime.now().plusDays(1)
-                val formatedTomorrow = tomorrow.format(formatter)
-                val totomorrow = LocalDateTime.now().plusDays(2)
-                val formatedToTomorrow = totomorrow.format(formatter)
-                val delkajson = mainObject.length() - 1
-                for (i in 0..delkajson) {
-                    val obed = mainObject.getJSONObject(i)
-                    val datum: String = obed.getString("datum")
-                    val jidlo: String = obed.getString("jidlo")
-                    val id: String = obed.getString("popis")
-                    val polevka: String = obed.getString("polevka")
-                    if (datum == formatedToday) {
-                        titleFoodToday.text = jidlo
-                        titleSoupToday.text = polevka
-                        if (foodPreferences != null) {
-                            with (foodPreferences.edit()) {
-                                putString("TodayFood", jidlo)
-                                putString("TodaySoup", polevka)
-                                putString("TodayPopis", id)
-                                apply()
-                            }
+            if (json !== "null") {
+                json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
+                try {
+                    val mainObject = JSONArray(json)
+                    val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
+                    val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)
+                    if (JSONObject(mainObject[0].toString()).has("err")) {
+                        layoutPreferences?.edit()?.putBoolean("widgetHide", true)?.apply()
+                        var errorType = mainObject[0].toString()
+                        errorType = JSONObject(errorType).getString("err")
+                        Log.i("JSONerr", errorType)
+                        nextLayout.visibility = View.GONE
+                        todayLayout.visibility = View.GONE
+                        if (errorType == "strava empty") {
+                            errorText.visibility = View.VISIBLE
+                            errorText.text = getString(R.string.stravaEmpty)
+                        } else if (errorType == "loading food in json error") {
+                            errorText.visibility = View.VISIBLE
+                            errorText.text = getString(R.string.loadingFoodInJsonError)
+                        } else if (errorType == "not created") {
+                            errorText.visibility = View.VISIBLE
+                            errorText.text = getString(R.string.notLoggedIn)
+                        } else {
+                            errorText.visibility = View.VISIBLE
+                            errorText.text = getString(R.string.unknownError)
                         }
-                    }
-                    if (datum == formatedTomorrow) {
-                        titleFoodTomorrow.text = jidlo
-                    }
-                    if (datum == formatedToTomorrow) {
-                        titleFood2Tomorrow.text = jidlo
-                    }
+
+                    } else {
+                        layoutPreferences?.edit()?.putBoolean("widgetHide", false)?.apply()
+                        nextLayout.visibility = View.VISIBLE
+                        todayLayout.visibility = View.VISIBLE
+                        val current = LocalDateTime.now()
+                        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                        val formatedToday = current.format(formatter)
+                        val tomorrow = LocalDateTime.now().plusDays(1)
+                        val formatedTomorrow = tomorrow.format(formatter)
+                        val totomorrow = LocalDateTime.now().plusDays(2)
+                        val formatedToTomorrow = totomorrow.format(formatter)
+                        val delkajson = mainObject.length() - 1
+                        for (i in 0..delkajson) {
+                            val obed = mainObject.getJSONObject(i)
+                            val datum: String = obed.getString("datum")
+                            val jidlo: String = obed.getString("jidlo")
+                            val id: String = obed.getString("popis")
+                            val polevka: String = obed.getString("polevka")
+                            if (datum == formatedToday) {
+                                titleFoodToday.text = jidlo
+                                titleSoupToday.text = polevka
+                                if (foodPreferences != null) {
+                                    with(foodPreferences.edit()) {
+                                        putString("TodayFood", jidlo)
+                                        putString("TodaySoup", polevka)
+                                        putString("TodayPopis", id)
+                                        apply()
+                                    }
+                                }
+                            }
+                            if (datum == formatedTomorrow) {
+                                titleFoodTomorrow.text = jidlo
+                            }
+                            if (datum == formatedToTomorrow) {
+                                titleFood2Tomorrow.text = jidlo
+                            }
 
 
+                        }
+                        lastDate.text = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
+                                ?.getString("lastDate", getString(R.string.notYetUpdated))
+
+                    }
+                } catch (e: org.json.JSONException){
+                    Log.d("err","JSONERR")
                 }
-                lastDate.text = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
-                    ?.getString("lastDate", getString(R.string.notYetUpdated))
-
             }
-
-            }
-
+        }
     }
 }

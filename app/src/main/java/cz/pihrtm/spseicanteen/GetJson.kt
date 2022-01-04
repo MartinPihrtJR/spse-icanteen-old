@@ -53,13 +53,9 @@ class GetJson : BroadcastReceiver() {
         val repeat = context.getSharedPreferences("repeat",Context.MODE_PRIVATE).getInt("repeat",0)
         val notifPref = context.getSharedPreferences("notif",Context.MODE_PRIVATE)
         val foodPref = context.getSharedPreferences("savedFood",Context.MODE_PRIVATE)
+        var builder: NotificationCompat.Builder
         fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
         createNotificationChannel(context) //create channel for notification
-        var builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_jidla)
-                .setContentTitle("My notification")
-                .setContentText("Much longer text that cannot fit one line...")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         if (repeat == 4){
             when{
                 (mode==0)->{
@@ -197,7 +193,7 @@ class GetJson : BroadcastReceiver() {
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(fileContents?.toByteArray())
+            it?.write(fileContents.toByteArray())
         }
         val denvTydnu = LocalDate.now().plusDays(2).dayOfWeek
         val orderEnabled = when {
@@ -226,9 +222,9 @@ class GetJson : BroadcastReceiver() {
                     val obed = mainObject.getJSONObject(i)
                     val datum: String = obed.getString("datum")
                     if (datumobedu!==datum){
-                        val current = LocalDateTime.now().plusDays(2)
-                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        datumobednavky = current.format(formatter)
+                        val currentOrder = LocalDateTime.now().plusDays(2)
+                        val formatterOrder = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        datumobednavky = currentOrder.format(formatterOrder)
                         prikaz = "$mode,$datumobednavky,make"
                     }
                 }
