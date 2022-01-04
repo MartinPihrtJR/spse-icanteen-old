@@ -1,5 +1,6 @@
 package cz.pihrtm.spseicanteen.ui.user
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
@@ -23,7 +24,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -42,6 +42,7 @@ class UserFragment : Fragment() {
     val job = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + job)
     private lateinit var navButton:Button
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -105,8 +106,10 @@ class UserFragment : Fragment() {
                 fieldUser.clearFocus()
                 hideKeyboard()
                 Toast.makeText(context, getString(R.string.field_saved), Toast.LENGTH_SHORT).show()
-                uiScope.launch(Dispatchers.IO) {
-                    getJsonOnetime(context)
+                if (context?.getSharedPreferences("internet", Context.MODE_PRIVATE)?.getBoolean("net",false)!!){
+                    uiScope.launch(Dispatchers.IO) {
+                        getJsonOnetime(context)
+                    }
                 }
             }
 
@@ -131,15 +134,11 @@ class UserFragment : Fragment() {
         return view
 
     }
-    fun Fragment.hideKeyboard() {
+    private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
     }
 
-    fun Activity.hideKeyboard() {
-        hideKeyboard(currentFocus ?: View(this))
-    }
-
-    fun Context.hideKeyboard(view: View) {
+    private fun Context.hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
@@ -160,9 +159,8 @@ class UserFragment : Fragment() {
         Log.i("DATAint", output)
         Log.i("JSONcontent", output)
         val filename = "jidla.json"
-        val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(fileContents.toByteArray())
+            it?.write(output.toByteArray())
         }
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")

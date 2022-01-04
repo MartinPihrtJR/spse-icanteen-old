@@ -43,8 +43,8 @@
     <string name="aboutWelcome">Tato aplikace vznikla za účelem zjednodušení života žáků Střední Odborné Školy Elektrotechnické v Plzni při objednávání jídel. Už několikrát se mi stalo, že jsem si zapoměl obědnat a proto jsem byl o hladu. Přidal jsem i pár funkcí navíc jako notifikace nebo widget abyste měli o svých obědech přehled.
     Doufám že Vám bude aplikace dobře sloužit a budu rád za jakékoliv připomínky.</string>
     <string name="aboutOpenStore">Ohodnotit aplikaci</string>
-    <string name="aboutAuthor">Autor: Martin Pihrt<br></br><br></br>
-    Testeři: Vítek Fikrle a Marek Köcher</string>
+    <string name="aboutAuthor">Autor: Martin Pihrt</string>
+    <string name="aboutTesters">Testeři: Vítek Fikrle a Marek Köcher</string>
     <string name="menu_objednavky">Moje objednávky</string>
     <string name="menu_notif">Oznámení</string>
     <string name="menu_objednej">Auto objednávání</string>
@@ -77,4 +77,5 @@
     <string name="notif_newFood">Oznamovat nová jídla</string>
     <string name="notif_newOrder">Oznamovat auto obědnávky</string>
     <string name="error">Vyskytla se chyba</string>
+    <string name="noInternet">Pro aktualizaci obědnávek je potřeba připojení k síti!</string>
 </resources>

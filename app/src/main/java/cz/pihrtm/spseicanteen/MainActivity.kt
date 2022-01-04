@@ -7,12 +7,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
-import android.os.SystemClock
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
@@ -29,7 +29,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import cz.pihrtm.spseicanteen.ui.home.HomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -74,6 +73,8 @@ class MainActivity : AppCompatActivity() {
         val refreshButton: Button = findViewById(R.id.nav_refresh)
         val updatejob = Job()
         val uiScope = CoroutineScope(Dispatchers.Main + updatejob)
+        val internetPreferences = getSharedPreferences("internet", Context.MODE_PRIVATE)
+        internetPreferences.edit().putBoolean("net",isOnline()).apply()
         view = this
         nextLayout = view.findViewById(R.id.foodNext)
         todayLayout = view.findViewById(R.id.foodToday)
@@ -121,9 +122,15 @@ class MainActivity : AppCompatActivity() {
                         pendingIntent
                 )
             }
+            if (!internetPreferences.getBoolean("net",false)){
+                Toast.makeText(this,getString(R.string.noInternet),Toast.LENGTH_LONG).show()
+            }
         }
 
+
         refreshButton.setOnClickListener {
+            internetPreferences.edit().putBoolean("net",isOnline()).apply()
+            if (internetPreferences.getBoolean("net",false)){
             uiScope.launch(Dispatchers.IO) {
                 getJsonOnetime(this@MainActivity)
             }
@@ -134,11 +141,11 @@ class MainActivity : AppCompatActivity() {
             Handler().postDelayed({
                 updateUI(this)
             }, 10000)
+            }
+            else {
+                Toast.makeText(this,getString(R.string.noInternet),Toast.LENGTH_LONG).show()
+            }
         }
-
-
-
-        //TODO kdyz neni internet, vypiseme chybu (Toast)
 
 
 
@@ -174,7 +181,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun getJsonOnetime(context: Context?){
+    private fun getJsonOnetime(context: Context?){
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         val preferences = context?.getSharedPreferences("update",Context.MODE_PRIVATE)
         StrictMode.setThreadPolicy(policy)
@@ -183,12 +190,11 @@ class MainActivity : AppCompatActivity() {
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
         val apikey = 1234
-        var fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
-        var output: String = getDataFromUrl(fulladdr).toString()
+        val fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
+        val output: String = getDataFromUrl(fulladdr).toString()
         val filename = "jidla.json"
-        val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(fileContents.toByteArray())
+            it?.write(output.toByteArray())
         }
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
@@ -320,5 +326,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun isOnline(): Boolean {
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }

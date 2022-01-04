@@ -53,22 +53,31 @@ class GetJson : BroadcastReceiver() {
         val repeat = context.getSharedPreferences("repeat",Context.MODE_PRIVATE).getInt("repeat",0)
         val notifPref = context.getSharedPreferences("notif",Context.MODE_PRIVATE)
         val foodPref = context.getSharedPreferences("savedFood",Context.MODE_PRIVATE)
+        val internetPreferences = context.getSharedPreferences("internet",Context.MODE_PRIVATE)
         var builder: NotificationCompat.Builder
         fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
         createNotificationChannel(context) //create channel for notification
         if (repeat == 4){
             when{
                 (mode==0)->{
-                    getFood(context)
+                    if (internetPreferences.getBoolean("net",false)){
+                        getFood(context)
+                    }
                 }
                 (mode==1)->{
-                    orderFood(context,3)
+                    if (internetPreferences.getBoolean("net",false)) {
+                        orderFood(context, 3)
+                    }
                 }
                 (mode==2)->{
+                    if (internetPreferences.getBoolean("net",false)){
                     orderFood(context, 4)
+                    }
                 }
                 (mode==3)->{
-                    orderFood(context, 5)
+                    if (internetPreferences.getBoolean("net",false)) {
+                        orderFood(context, 5)
+                    }
                 }
             }
             context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",0).apply()
