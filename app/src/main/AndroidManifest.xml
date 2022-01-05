@@ -12,7 +12,8 @@
         android:theme="@style/Theme.SPŠEICanteen">
         <activity
             android:name=".FirstSetup"
-            android:theme="@style/Theme.SPŠEICanteen.NoActionBar" />
+            android:theme="@style/Theme.SPŠEICanteen.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".MainActivity"
@@ -45,7 +46,7 @@
             android:name=".GetJson"
             android:icon="@drawable/ic_jidla"
             android:label="@string/service_name"
-            android:permission="android.permission.BIND_JOB_SERVICE"></service>
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
