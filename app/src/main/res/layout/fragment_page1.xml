@@ -23,7 +23,7 @@
             android:id="@+id/imageView3"
             android:layout_width="240dp"
             android:layout_height="138dp"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/ic_spselogo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

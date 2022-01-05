@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/mpihrt/Documents/GitHub/spse-icanteen/app/src/main/res/layout/fragment_info.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/mpihrt/Documents/GitHub/spse-icanteen/app/src/main/res/layout/fragment_page1.xml" value="0.184375" />
+        <entry key="..\:/Users/mpihrt/Documents/GitHub/spse-icanteen/app/src/main/res/layout/fragment_page2.xml" value="0.184375" />
         <entry key="..\:/Users/mpihrt/Documents/GitHub/spse-icanteen/app/src/main/res/layout/fragment_user.xml" value="0.25" />
+        <entry key="..\:/Users/mpihrt/Documents/GitHub/spse-icanteen/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.20052083333333334" />
       </map>
     </option>
   </component>
