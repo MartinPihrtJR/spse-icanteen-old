@@ -6,9 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.StrictMode
-import android.provider.Settings.Global.getString
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -40,7 +38,7 @@ class GetJson : BroadcastReceiver() {
     private lateinit var pwd :String
     private var apikey =  1234
     private lateinit var preferences:SharedPreferences
-    private lateinit var CHANNEL_ID: String
+    private lateinit var channelId: String
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -54,30 +52,44 @@ class GetJson : BroadcastReceiver() {
         val notifPref = context.getSharedPreferences("notif",Context.MODE_PRIVATE)
         val foodPref = context.getSharedPreferences("savedFood",Context.MODE_PRIVATE)
         val internetPreferences = context.getSharedPreferences("internet",Context.MODE_PRIVATE)
-        var builder: NotificationCompat.Builder
+        val builder: NotificationCompat.Builder
         fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
         createNotificationChannel(context) //create channel for notification
+
+
         if (repeat == 4){
             when{
                 (mode==0)->{
-                    if (internetPreferences.getBoolean("net",false)){
-                        getFood(context)
+                    if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
+                        if (internetPreferences.getBoolean("net",false)){
+                            getFood(context)
+                        }
                     }
+
                 }
                 (mode==1)->{
-                    if (internetPreferences.getBoolean("net",false)) {
-                        orderFood(context, 3)
+                    if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
+                        if (internetPreferences.getBoolean("net",false)) {
+                            orderFood(context, 3)
+                        }
                     }
+
                 }
                 (mode==2)->{
-                    if (internetPreferences.getBoolean("net",false)){
-                    orderFood(context, 4)
+                    if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
+                        if (internetPreferences.getBoolean("net",false)){
+                            orderFood(context, 4)
+                        }
                     }
+
                 }
                 (mode==3)->{
-                    if (internetPreferences.getBoolean("net",false)) {
-                        orderFood(context, 5)
+                    if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
+                        if (internetPreferences.getBoolean("net",false)) {
+                            orderFood(context, 5)
+                        }
                     }
+
                 }
             }
             context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",0).apply()
@@ -87,13 +99,13 @@ class GetJson : BroadcastReceiver() {
             context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",replus).apply()
         }
         if (notifPref.getBoolean("newEnabled",false)){
-            val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh")).toString().toInt()
+            val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toString().toInt()
             when (notifPref.getInt("time",10)){
                 10 -> {
                     if (hrs==10) {
-                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val title = context.getString(R.string.ordered_today)+" " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
                         val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                        builder = NotificationCompat.Builder(context, channelId)
                                 .setSmallIcon(R.drawable.ic_jidla)
                                 .setContentTitle(title)
                                 .setContentText(description)
@@ -107,9 +119,9 @@ class GetJson : BroadcastReceiver() {
                 }
                 11 -> {
                     if (hrs==11) {
-                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val title = context.getString(R.string.ordered_today)+ " " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
                         val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                        builder = NotificationCompat.Builder(context, channelId)
                                 .setSmallIcon(R.drawable.ic_jidla)
                                 .setContentTitle(title)
                                 .setContentText(description)
@@ -123,9 +135,9 @@ class GetJson : BroadcastReceiver() {
                 }
                 12 -> {
                     if (hrs==12) {
-                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val title = context.getString(R.string.ordered_today)+ " " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
                         val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                        builder = NotificationCompat.Builder(context, channelId)
                                 .setSmallIcon(R.drawable.ic_jidla)
                                 .setContentTitle(title)
                                 .setContentText(description)
@@ -139,9 +151,9 @@ class GetJson : BroadcastReceiver() {
                 }
                 13 -> {
                     if (hrs==13) {
-                        val title = context.getString(R.string.ordered_today)+ foodPref.getString("TodayPopis",context.getString(R.string.noFoodData))
+                        val title = context.getString(R.string.ordered_today)+ " " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
                         val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                        builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                        builder = NotificationCompat.Builder(context, channelId)
                                 .setSmallIcon(R.drawable.ic_jidla)
                                 .setContentTitle(title)
                                 .setContentText(description)
@@ -163,28 +175,25 @@ class GetJson : BroadcastReceiver() {
     }
 
     private fun createNotificationChannel(context: Context?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = context?.getString(R.string.channel_name)
-            val descriptionText = context?.getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            CHANNEL_ID = "SPSEiCanteen"
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                    context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        val name = context?.getString(R.string.channel_name)
+        val descriptionText = context?.getString(R.string.channel_description)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        channelId = "SPSEiCanteen"
+        val channel = NotificationChannel(channelId, name, importance).apply {
+            description = descriptionText
         }
+        // Register the channel with the system
+        val notificationManager: NotificationManager =
+                context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
 
     private fun getFood(context: Context?){
-        val output = getDataFromUrl(fulladdr).toString()
+        val output = getDataFromUrl(fulladdr, context).toString()
         val filename = "jidla.json"
-        val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(fileContents.toByteArray())
+            it?.write(output.toByteArray())
         }
         json = output
         val current = LocalDateTime.now()
@@ -198,7 +207,7 @@ class GetJson : BroadcastReceiver() {
     }
 
     private fun orderFood(context: Context?,mode: Int){
-        var output = getDataFromUrl(fulladdr).toString()
+        var output = getDataFromUrl(fulladdr, context).toString()
         val filename = "jidla.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
@@ -250,7 +259,7 @@ class GetJson : BroadcastReceiver() {
                 else -> {"oběd"}
             }
             val description = context.getString(R.string.autoOrderedDescr) + obed
-            var builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            val builder = NotificationCompat.Builder(context, channelId)
                     .setSmallIcon(R.drawable.ic_jidla)
                     .setContentTitle(title)
                     .setContentText(description)
@@ -261,7 +270,7 @@ class GetJson : BroadcastReceiver() {
                 notify(notificationId, builder.build())
             }
         }
-        output = getDataFromUrl(fulladdr).toString()
+        output = getDataFromUrl(fulladdr, context).toString()
         val foodObject = JSONArray(output)
         if (JSONObject(foodObject[0].toString()).has("food")){
             fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
@@ -270,9 +279,7 @@ class GetJson : BroadcastReceiver() {
     }
 
 
-    var error = "" // string field
-
-    private fun getDataFromUrl(demoIdUrl: String): String? {
+    private fun getDataFromUrl(demoIdUrl: String, context: Context?): String? {
         var result: String? = null
         val resCode: Int
         val input: InputStream
@@ -299,8 +306,12 @@ class GetJson : BroadcastReceiver() {
                 }
                 input.close()
                 result = sb.toString()
-            } else {
-                error += resCode
+            } else{
+                val output = "[{\"err\":\"strava empty\"}]"
+                val filename = "jidla.json"
+                context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                    it?.write(output.toByteArray())
+                }
             }
         } catch (e: IOException) {
             e.printStackTrace()

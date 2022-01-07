@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                 val processTimer: AlarmManager? = this.getSystemService(ALARM_SERVICE) as AlarmManager?
                 val intent = Intent(this, GetJson::class.java)
                 val pendingIntent =
-                        PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                        PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
                 processTimer!!.setRepeating(
                         AlarmManager.RTC_WAKEUP,
                         System.currentTimeMillis(),
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
                 getJsonOnetime(this@MainActivity)
             }
             refreshButton.startAnimation(
-                AnimationUtils.loadAnimation(this, R.anim.rotate360x2) );
+                AnimationUtils.loadAnimation(this, R.anim.rotate360x2) )
             Toast.makeText(this,getString(R.string.action_updating),Toast.LENGTH_LONG).show()
             //aktualizace UI
             Handler().postDelayed({
@@ -153,8 +153,8 @@ class MainActivity : AppCompatActivity() {
     private fun replaceUserFragment() {
         Log.i("replaceFragment", "OK")
         val navView: NavigationView = findViewById(R.id.nav_view)
-        navView.menu.getItem(0).isChecked = false;
-        navView.menu.getItem(3).isChecked = true;
+        navView.menu.getItem(0).isChecked = false
+        navView.menu.getItem(3).isChecked = true
         val navController = findNavController(R.id.nav_host_fragment)
         navController.navigate(R.id.nav_user)
     }
@@ -197,7 +197,7 @@ class MainActivity : AppCompatActivity() {
             it?.write(output.toByteArray())
         }
         val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val lastUpdate = current.format(formatter)
         if (preferences != null) {
             with (preferences.edit()) {
@@ -208,8 +208,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-    var error = "" // string field
 
     private fun getDataFromUrl(demoIdUrl: String): String? {
         var result: String? = null
@@ -237,7 +235,11 @@ class MainActivity : AppCompatActivity() {
                 input.close()
                 result = sb.toString()
             } else {
-                error += resCode
+                val output = "[{\"err\":\"strava empty\"}]"
+                val filename = "jidla.json"
+                this.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                    it?.write(output.toByteArray())
+                }
             }
         } catch (e: IOException) {
             e.printStackTrace()
