@@ -39,15 +39,15 @@ import javax.net.ssl.HttpsURLConnection
 class UserFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
-    val job = Job()
-    val uiScope = CoroutineScope(Dispatchers.Main + job)
-    private lateinit var navButton:Button
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         val view: View = inflater.inflate(R.layout.fragment_user, container, false)
@@ -144,7 +144,7 @@ class UserFragment : Fragment() {
     }
     //*********************************************************
     //stahnuti jsonu
-    fun getJsonOnetime(context: Context?){
+    private fun getJsonOnetime(context: Context?){
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         val preferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
         StrictMode.setThreadPolicy(policy)
@@ -173,7 +173,7 @@ class UserFragment : Fragment() {
         }
     }
 
-    var error = "" // string field
+    private var error = "" // string field
 
     private fun getDataFromUrl(demoIdUrl: String): String? {
         var result: String? = null
@@ -199,9 +199,7 @@ class UserFragment : Fragment() {
                 }
                 input.close()
                 result = sb.toString()
-            } else {
-                error += resCode
-            }
+            } else error += resCode
         } catch (e: IOException) {
             e.printStackTrace()
         }

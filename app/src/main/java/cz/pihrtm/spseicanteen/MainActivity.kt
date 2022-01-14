@@ -50,7 +50,7 @@ import javax.net.ssl.HttpsURLConnection
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    var preferences: SharedPreferences? = null
+    private var preferences: SharedPreferences? = null
     private var view = this
     private lateinit var nextLayout: ConstraintLayout
     private lateinit var todayLayout: ConstraintLayout
@@ -266,18 +266,23 @@ class MainActivity : AppCompatActivity() {
                         Log.i("JSONerr", errorType)
                         nextLayout.visibility = View.GONE
                         todayLayout.visibility = View.GONE
-                        if (errorType == "strava empty") {
-                            errorText.visibility = View.VISIBLE
-                            errorText.text = getString(R.string.stravaEmpty)
-                        } else if (errorType == "loading food in json error") {
-                            errorText.visibility = View.VISIBLE
-                            errorText.text = getString(R.string.loadingFoodInJsonError)
-                        } else if (errorType == "not created") {
-                            errorText.visibility = View.VISIBLE
-                            errorText.text = getString(R.string.notLoggedIn)
-                        } else {
-                            errorText.visibility = View.VISIBLE
-                            errorText.text = getString(R.string.unknownError)
+                        when (errorType) {
+                            "strava empty" -> {
+                                errorText.visibility = View.VISIBLE
+                                errorText.text = getString(R.string.stravaEmpty)
+                            }
+                            "loading food in json error" -> {
+                                errorText.visibility = View.VISIBLE
+                                errorText.text = getString(R.string.loadingFoodInJsonError)
+                            }
+                            "not created" -> {
+                                errorText.visibility = View.VISIBLE
+                                errorText.text = getString(R.string.notLoggedIn)
+                            }
+                            else -> {
+                                errorText.visibility = View.VISIBLE
+                                errorText.text = getString(R.string.unknownError)
+                            }
                         }
 
                     } else {

@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.StrictMode
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -55,7 +57,26 @@ class GetJson : BroadcastReceiver() {
         val builder: NotificationCompat.Builder
         fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
         createNotificationChannel(context) //create channel for notification
+        fun isOnline(): Boolean {
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
 
+        internetPreferences.edit().putBoolean("net",isOnline()).apply()
 
         if (repeat == 4){
             when{
