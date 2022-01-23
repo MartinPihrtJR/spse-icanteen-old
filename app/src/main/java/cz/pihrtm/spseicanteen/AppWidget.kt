@@ -1,12 +1,16 @@
 package cz.pihrtm.spseicanteen
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.widget.RelativeLayout
 import android.widget.RemoteViews
+
+
+
+
 
 /**
  * Implementation of App Widget functionality.
@@ -18,11 +22,11 @@ class AppWidget : AppWidgetProvider() {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
-
     override fun onEnabled(context: Context) {
         val food = context.getSharedPreferences("savedFood", Context.MODE_PRIVATE).getString("TodayFood", context.getString(R.string.noFoodData))
         val soup = context.getSharedPreferences("savedFood", Context.MODE_PRIVATE).getString("TodaySoup", context.getString(R.string.noSoupData))
         val popis = context.getSharedPreferences("savedFood", Context.MODE_PRIVATE).getString("TodayPopis", context.getString(R.string.noPopis))
+        val lastUpdate = context.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE).getString("lastUpdate", context.getString(R.string.lastUpdatedWTitle))
         val enabledLayout = context.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE).getBoolean("widgetHide", true)
         // Construct the RemoteViews object
         val views = RemoteViews(context.packageName, R.layout.app_widget)
@@ -30,14 +34,21 @@ class AppWidget : AppWidgetProvider() {
             views.setViewVisibility(R.id.widgetSoupTitle, View.GONE)
             views.setViewVisibility(R.id.widgetTodayTitle, View.GONE)
             views.setViewVisibility(R.id.widgetErrorTitle, View.VISIBLE)
+            views.setViewVisibility(R.id.widgetLastUpdate, View.GONE)
         }
         else{
             views.setViewVisibility(R.id.widgetSoupTitle, View.VISIBLE)
             views.setViewVisibility(R.id.widgetTodayTitle, View.VISIBLE)
             views.setViewVisibility(R.id.widgetErrorTitle, View.GONE)
+            views.setViewVisibility(R.id.widgetLastUpdate, View.VISIBLE)
             views.setTextViewText(R.id.widgetTodayTitle, "$popis: $food")
             views.setTextViewText(R.id.widgetSoupTitle, context.getString(R.string.noSoupPrefix)+ " $soup")
+            views.setTextViewText(R.id.widgetLastUpdate, lastUpdate)
         }
+        val intent = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        views.setOnClickPendingIntent(R.id.layoutMain, pendingIntent)
+
     }
 
     override fun onDisabled(context: Context) {
@@ -49,6 +60,7 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     val food = context.getSharedPreferences("savedFood", Context.MODE_PRIVATE).getString("TodayFood", context.getString(R.string.noFoodData))
     val soup = context.getSharedPreferences("savedFood", Context.MODE_PRIVATE).getString("TodaySoup", context.getString(R.string.noSoupData))
     val popis = context.getSharedPreferences("savedFood", Context.MODE_PRIVATE).getString("TodayPopis", context.getString(R.string.noPopis))
+    val lastUpdate = context.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE).getString("lastUpdate", context.getString(R.string.lastUpdatedWTitle))
     val enabledLayout = context.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE).getBoolean("widgetHide", true)
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.app_widget)
@@ -56,15 +68,20 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
         views.setViewVisibility(R.id.widgetSoupTitle, View.GONE)
         views.setViewVisibility(R.id.widgetTodayTitle, View.GONE)
         views.setViewVisibility(R.id.widgetErrorTitle, View.VISIBLE)
+        views.setViewVisibility(R.id.widgetLastUpdate, View.GONE)
     }
     else{
         views.setViewVisibility(R.id.widgetSoupTitle, View.VISIBLE)
         views.setViewVisibility(R.id.widgetTodayTitle, View.VISIBLE)
         views.setViewVisibility(R.id.widgetErrorTitle, View.GONE)
+        views.setViewVisibility(R.id.widgetLastUpdate, View.VISIBLE)
         views.setTextViewText(R.id.widgetTodayTitle, "$popis $food")
         views.setTextViewText(R.id.widgetSoupTitle, soup)
+        views.setTextViewText(R.id.widgetLastUpdate, lastUpdate)
     }
-
+    val intent = Intent(context, MainActivity::class.java)
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+    views.setOnClickPendingIntent(R.id.layoutMain, pendingIntent)
 
 
     // Instruct the widget manager to update the widget

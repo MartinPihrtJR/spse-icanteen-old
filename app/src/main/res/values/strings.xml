@@ -39,7 +39,7 @@
     <string name="ordered_today">Dnes objednáno: </string>
     <string name="autoOrdered">Automaticky obědnáno na </string>
     <string name="autoOrderedDescr">Byl automaticky obědnán </string>
-    <string name="welcomeTOS">Používáním aplikace souhlasíte s <a href="https://www.pihrt.com/spse/jidlo/tos">podmínkami použití</a></string>
+    <string name="welcomeTOS">Používáním aplikace souhlasíte s <a href="https://jidlo.pihrt.com/tos/index.php">podmínkami použití</a></string>
     <string name="aboutWelcome">Tato aplikace vznikla za účelem zjednodušení života žáků Střední Odborné Školy Elektrotechnické v Plzni při objednávání jídel. Už několikrát se mi stalo, že jsem si zapoměl obědnat a proto jsem byl o hladu. Přidal jsem i pár funkcí navíc jako notifikace nebo widget abyste měli o svých obědech přehled.
     Doufám že Vám bude aplikace dobře sloužit a budu rád za jakékoliv připomínky.</string>
     <string name="aboutOpenStore">Ohodnotit aplikaci</string>
@@ -78,4 +78,6 @@
     <string name="notif_newOrder">Oznamovat auto obědnávky</string>
     <string name="error">Vyskytla se chyba</string>
     <string name="noInternet">Pro aktualizaci obědnávek je potřeba připojení k síti!</string>
+    <string name="lastUpdatedWTitle">Aktualizováno: nikdy</string>
 </resources>
+<!-- TODO přeložit do angličtiny -->

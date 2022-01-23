@@ -376,6 +376,8 @@ class GetJson : BroadcastReceiver() {
 
 
             }
+            layoutPreferences?.edit()?.putString("lastUpdate", context.getSharedPreferences("update", Context.MODE_PRIVATE)
+                ?.getString("lastDate", context.getString(R.string.notYetUpdated)))?.apply()
         }
     }
 }

@@ -3,9 +3,10 @@
     android:id="@+id/layoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/side_nav_bar"
+    android:background="@drawable/layoutbg"
     android:padding="@dimen/widget_margin"
-    android:theme="@style/ThemeOverlay.SPŠEICanteen.AppWidgetContainer">
+    android:theme="@style/ThemeOverlay.SPŠEICanteen.AppWidgetContainer"
+    android:radius="10dp">
 
 
     <TextView
@@ -13,30 +14,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/noFoodData"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/white" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/widgetSoupTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/widgetTodayTitle"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:text="@string/noSoupData"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/widgetErrorTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/widgetSoupTitle"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:text="@string/unknownError"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@android:color/holo_red_light" />
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/widgetLastUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widgetSoupTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/lastUpdatedWTitle"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
 </RelativeLayout>

@@ -45,6 +45,12 @@ import java.net.URLConnection
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.net.ssl.HttpsURLConnection
+import android.appwidget.AppWidgetManager
+
+import android.content.ComponentName
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -135,6 +141,12 @@ class MainActivity : AppCompatActivity() {
                     uiScope.launch(Dispatchers.IO) {
                         getJsonOnetime(this@MainActivity)
                     }
+                    //TODO aktualizace widgetu po manualnim updatu
+                    val intent = Intent(applicationContext , AppWidget::class.java)
+                    intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                    val ids: IntArray = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, AppWidget::class.java))
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                    sendBroadcast(intent)
                 }
             refreshButton.startAnimation(
                 AnimationUtils.loadAnimation(this, R.anim.rotate360x2) )
@@ -193,11 +205,13 @@ class MainActivity : AppCompatActivity() {
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
         val apikey = 1234
         val fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
+        Log.i("GETjsonOT", fulladdr)
         val output: String = getDataFromUrl(fulladdr).toString()
         val filename = "jidla.json"
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(output.toByteArray())
         }
+        Log.i("OutputJson", output)
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val lastUpdate = current.format(formatter)
@@ -328,10 +342,17 @@ class MainActivity : AppCompatActivity() {
                         }
                         lastDate.text = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
                                 ?.getString("lastDate", getString(R.string.notYetUpdated))
+                        layoutPreferences?.edit()?.putString("lastUpdate", lastDate.text.toString())?.apply()
 
+                        val navView: NavigationView = findViewById(R.id.nav_view)
+                        navView.menu.getItem(0).isChecked = false
+                        navView.menu.getItem(0).isChecked = true
+                        val navController = findNavController(R.id.nav_host_fragment)
+                        navController.navigate(R.id.nav_home)
                     }
-                } catch (e: org.json.JSONException){
-                    Log.d("err","JSONERR")
+
+                } catch (e: Exception){
+                    Log.d("UPDATEUI", "Error: $e")
                 }
             }
         }

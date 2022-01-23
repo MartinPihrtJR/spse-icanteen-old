@@ -125,7 +125,7 @@ class HomeFragment : Fragment() {
             } catch (e: Exception){
                 Log.i("ERROR",e.toString())
             }
-            //TODO přidat i do autostahoavání, přidat datum aktualizace widgetu
+
             }
 
 
