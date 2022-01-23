@@ -46,7 +46,7 @@ class GetJson : BroadcastReceiver() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         preferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)!!
-        addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
+        addr = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno="
         name = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing").toString()
         pwd = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing").toString()
         val mode = context.getSharedPreferences("autoOrder", Context.MODE_PRIVATE)?.getInt("mode", 0)

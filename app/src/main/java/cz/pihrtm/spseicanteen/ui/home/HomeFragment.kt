@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import cz.pihrtm.spseicanteen.R
 import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -46,6 +47,8 @@ class HomeFragment : Fragment() {
         else {
             var json = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
             json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
+            Log.i("JSON", json)
+            try {
                 val mainObject = JSONArray(json)
                 val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
                 val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)
@@ -75,7 +78,8 @@ class HomeFragment : Fragment() {
                         }
                     }
 
-                } else {
+                }
+                else {
                     layoutPreferences?.edit()?.putBoolean("widgetHide", false)?.apply()
                     nextLayout.visibility = View.VISIBLE
                     todayLayout.visibility = View.VISIBLE
@@ -115,9 +119,13 @@ class HomeFragment : Fragment() {
 
                     }
                     lastDate.text = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
-                            ?.getString("lastDate", getString(R.string.notYetUpdated))
+                        ?.getString("lastDate", getString(R.string.notYetUpdated))
 
                 }
+            } catch (e: Exception){
+                Log.i("ERROR",e.toString())
+            }
+            //TODO přidat i do autostahoavání, přidat datum aktualizace widgetu
             }
 
 

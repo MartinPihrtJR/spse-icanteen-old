@@ -131,9 +131,11 @@ class MainActivity : AppCompatActivity() {
         refreshButton.setOnClickListener {
             internetPreferences.edit().putBoolean("net",isOnline()).apply()
             if (internetPreferences.getBoolean("net",false)){
-            uiScope.launch(Dispatchers.IO) {
-                getJsonOnetime(this@MainActivity)
-            }
+                if(this.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName", "missing") != "missing"){
+                    uiScope.launch(Dispatchers.IO) {
+                        getJsonOnetime(this@MainActivity)
+                    }
+                }
             refreshButton.startAnimation(
                 AnimationUtils.loadAnimation(this, R.anim.rotate360x2) )
             Toast.makeText(this,getString(R.string.action_updating),Toast.LENGTH_LONG).show()
@@ -185,7 +187,7 @@ class MainActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         val preferences = context?.getSharedPreferences("update",Context.MODE_PRIVATE)
         StrictMode.setThreadPolicy(policy)
-        val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
+        val addr = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno="
         val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")

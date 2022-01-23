@@ -149,7 +149,7 @@ class UserFragment : Fragment() {
         val preferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
         StrictMode.setThreadPolicy(policy)
         Log.d("JSON", "OK")
-        val addr = "https://pihrt.com/spse/jidlo/nacti_jidlo.php?jmeno="
+        val addr = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno="
         val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
