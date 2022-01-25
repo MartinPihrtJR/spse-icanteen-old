@@ -49,6 +49,7 @@ class AppWidget : AppWidgetProvider() {
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
         views.setOnClickPendingIntent(R.id.layoutMain, pendingIntent)
 
+
     }
 
     override fun onDisabled(context: Context) {

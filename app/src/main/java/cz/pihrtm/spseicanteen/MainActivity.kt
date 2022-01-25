@@ -48,6 +48,15 @@ import javax.net.ssl.HttpsURLConnection
 import android.appwidget.AppWidgetManager
 
 import android.content.ComponentName
+import android.widget.RemoteViews
+
+import android.appwidget.AppWidgetProvider
+
+
+
+
+
+
 
 
 
@@ -141,12 +150,6 @@ class MainActivity : AppCompatActivity() {
                     uiScope.launch(Dispatchers.IO) {
                         getJsonOnetime(this@MainActivity)
                     }
-                    //TODO aktualizace widgetu po manualnim updatu
-                    val intent = Intent(applicationContext , AppWidget::class.java)
-                    intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-                    val ids: IntArray = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, AppWidget::class.java))
-                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
-                    sendBroadcast(intent)
                 }
             refreshButton.startAnimation(
                 AnimationUtils.loadAnimation(this, R.anim.rotate360x2) )
@@ -164,6 +167,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     private fun replaceUserFragment() {
         Log.i("replaceFragment", "OK")
         val navView: NavigationView = findViewById(R.id.nav_view)
