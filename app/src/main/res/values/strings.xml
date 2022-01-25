@@ -79,5 +79,6 @@
     <string name="error">Vyskytla se chyba</string>
     <string name="noInternet">Pro aktualizaci obědnávek je potřeba připojení k síti!</string>
     <string name="lastUpdatedWTitle">Aktualizováno: nikdy</string>
+    <string name="notifInfo">Po povolení funkce přijde ve vybraný čas oznámení s objednaným jídlem. Toto platí i při automatickém objednání.</string>
 </resources>
 <!-- TODO přeložit do angličtiny -->
