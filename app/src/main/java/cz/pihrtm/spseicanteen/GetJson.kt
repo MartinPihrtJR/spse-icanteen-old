@@ -38,7 +38,7 @@ class GetJson : BroadcastReceiver() {
     private lateinit var addr: String
     private lateinit var name:String
     private lateinit var pwd :String
-    private var apikey =  1234
+    private var apikey =  "uIS0TDs8FumqtMWGG1wp"
     private lateinit var preferences:SharedPreferences
     private lateinit var channelId: String
 

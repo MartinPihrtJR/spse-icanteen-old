@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceUserFragment() {
-        Log.i("replaceFragment", "OK")
+        Log.d("replaceFragment", "OK")
         val navView: NavigationView = findViewById(R.id.nav_view)
         navView.menu.getItem(0).isChecked = false
         navView.menu.getItem(3).isChecked = true
@@ -207,15 +207,15 @@ class MainActivity : AppCompatActivity() {
         val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
-        val apikey = 1234
+        val apikey = "uIS0TDs8FumqtMWGG1wp"
         val fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
-        Log.i("GETjsonOT", fulladdr)
+        Log.d("GETjsonOT", fulladdr)
         val output: String = getDataFromUrl(fulladdr).toString()
         val filename = "jidla.json"
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(output.toByteArray())
         }
-        Log.i("OutputJson", output)
+        Log.d("OutputJson", output)
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val lastUpdate = current.format(formatter)
@@ -283,7 +283,7 @@ class MainActivity : AppCompatActivity() {
                         layoutPreferences?.edit()?.putBoolean("widgetHide", true)?.apply()
                         var errorType = mainObject[0].toString()
                         errorType = JSONObject(errorType).getString("err")
-                        Log.i("JSONerr", errorType)
+                        Log.d("JSONerr", errorType)
                         nextLayout.visibility = View.GONE
                         todayLayout.visibility = View.GONE
                         when (errorType) {

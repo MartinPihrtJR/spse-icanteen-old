@@ -1,84 +1,82 @@
 <resources>
     <string name="app_name">SPŠE iCanteen</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">SPŠE iCanteen</string>
-    <string name="nav_header_subtitle">pihrtm</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_refresh">Obnovit</string>
-    <string name="service_name">Stažení obědnávek</string>
-    <string name="onBack">Je nutno dokončit proces přihlášení</string>
-    <string name="notLoggedIn">Nepřihlášen</string>
-    <string name="noFoodData">Oběd: Žádná data!</string>
-    <string name="noSoupData">Polévka: Žádná data!</string>
-    <string name="noFoodPrefix">Oběd: </string>
-    <string name="noSoupPrefix">Polévka: </string>
-    <string name="titleToday">Dnes:</string>
-    <string name="titleTomorrow">Zítra:</string>
-    <string name="title2Tomorrow">Pozítří:</string>
-    <string name="noPopis">Neobjednáno</string>
-    <string name="lastUpdated">Naposledy aktualizováno:</string>
-    <string name="notYetUpdated">nikdy</string>
-    <string name="stravaEmpty">Server SPŠE neodpovídá</string>
-    <string name="loadingFoodInJsonError">Špatné přihlašovací údaje</string>
-    <string name="unknownError">Neznámá chyba</string>
-    <string name="internetError">Nelze se připojit k síti</string>
-    <string name="action_updating">Aktualizuji…</string>
-    <string name="autoOrderDisabled">Funkce zakázána</string>
-    <string name="autoOrderFood1">Automaticky obědnávat oběd 1</string>
-    <string name="autoOrderFood2">Automaticky obědnávat oběd 2</string>
-    <string name="autoOrderFood3">Automaticky obědnávat oběd 3</string>
-    <string name="autoOrderToast0">Zakázáno</string>
-    <string name="autoOrderToast1">Nyní se objednává 1</string>
-    <string name="autoOrderToast2">Nyní se objednává 2</string>
-    <string name="autoOrderToast3">Nyní se objednává 3</string>
-    <string name="text11">10:00</string>
-    <string name="text1130">11:00</string>
-    <string name="text12">12:00</string>
-    <string name="text1230">13:00</string>
-    <string name="ordered_today">Dnes objednáno: </string>
-    <string name="autoOrdered">Automaticky obědnáno na </string>
-    <string name="autoOrderedDescr">Byl automaticky obědnán </string>
-    <string name="welcomeTOS">Používáním aplikace souhlasíte s <a href="https://jidlo.pihrt.com/tos/index.php">podmínkami použití</a></string>
-    <string name="aboutWelcome">Tato aplikace vznikla za účelem zjednodušení života žáků Střední Odborné Školy Elektrotechnické v Plzni při objednávání jídel. Už několikrát se mi stalo, že jsem si zapoměl obědnat a proto jsem byl o hladu. Přidal jsem i pár funkcí navíc jako notifikace nebo widget abyste měli o svých obědech přehled.
-    Doufám že Vám bude aplikace dobře sloužit a budu rád za jakékoliv připomínky.</string>
-    <string name="aboutOpenStore">Ohodnotit aplikaci</string>
-    <string name="aboutAuthor">Autor: Martin Pihrt</string>
-    <string name="aboutTesters">Testeři: Vítek Fikrle a Marek Köcher</string>
-    <string name="menu_objednavky">Moje objednávky</string>
-    <string name="menu_notif">Oznámení</string>
-    <string name="menu_objednej">Auto objednávání</string>
-    <string name="menu_user">Změna uživatele</string>
-    <string name="menu_infobar">Informace</string>
-    <string name="menu_widget">Widget</string>
-    <string name="menu_info">O aplikaci</string>
-    <string name="lgn_change_title">Nový uživatel</string>
-    <string name="lgn_btn_clear">Zapomenout uživatele</string>
-    <string name="field_blank">Pole nesmí být prázdná!</string>
-    <string name="field_saved">Uloženo</string>
-    <string name="field_clear">Uživatel zapomenut</string>
-    <string name="lgn_curr_pre">Aktivní uživatel:</string>
-    <string name="lgn_field_name">Jméno</string>
-    <string name="lgn_field_pwd">Heslo</string>
-    <string name="lgn_btn_save">Uložit a přihlásit</string>
-    <string name="lgn_btn_login">Přihlásit se</string>
-    <string name="welcome1_title">Vítejte!</string>
-    <string name="welcome2_title">Funkce</string>
-    <string name="welcome3_title">Už to skoro je!</string>
-    <string name="autoOrderHint">Pokud vyberete funkci automatického objednávání, stávající objednávky nebudou zrušeny. Aplikace automaticky obědná pouze když na den obědnáno není.</string>
-    <string name="welcome3_description">Abyste aplikaci mohli používat, je třeba se přihlásit k vašemu stravovacímu účtu. (Aplikace data s nikým nesdílí a používá je čistě k funkčnosti.)</string>
-    <string name="welcome2_description">Aplikace za Vás automaticky obědná jídla, pošle vám oznámení s obědem, na domovské obrazovce vám pomocí widgetu ukáže co máte dnes i zítra k obědu a v budoucnu možná mnohem víc! Aplikace potřebuje přístup k Internetu aby mohla stahovat objednaná jídla.</string>
-    <string name="welcome1_description">Díky za stažení aplikace, která Vám usnadní život! Pokud Vám bude sloužit dobře, budu rád za recenzi. Aplikaci budu dále aktualizovat a přidávat do ní další funkce. Přejeďte prstem doleva pro pokračování…</string>
-    <string name="widgetFragment_title">Přidání widgetu</string>
-    <string name="widgetFragment_content">Pro přidání widgetu podržte prst na ploše zařízení, vyberte položku "widget" a vyberte widget SPŠE iCanteen.<br />Widget zobrazuje jídlo a polévku v aktuální den. <br />Widget se aktualizuje automaticky po jedné hodině.</string>
-    <string name="add_widget">Přidat widget</string>
-    <string name="channel_name">SPŠEiCanteen channel</string>
-    <string name="channel_description">Notifikace obědnávek</string>
-    <string name="notif_newFood">Oznamovat nová jídla</string>
-    <string name="notif_newOrder">Oznamovat auto obědnávky</string>
-    <string name="error">Vyskytla se chyba</string>
-    <string name="noInternet">Pro aktualizaci obědnávek je potřeba připojení k síti!</string>
-    <string name="lastUpdatedWTitle">Aktualizováno: nikdy</string>
-    <string name="notifInfo">Po povolení funkce přijde ve vybraný čas oznámení s objednaným jídlem. Toto platí i při automatickém objednání.</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">SPŠE iCanteen</string>
+    <string name="nav_header_subtitle" translatable="false">-</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="service_name">Order download</string>
+    <string name="onBack">You need to finish first setup!</string>
+    <string name="noFoodData">Meal: No data!</string>
+    <string name="noSoupData">Soup: No data!</string>
+    <string name="noFoodPrefix">"Meal: "</string>
+    <string name="notYetUpdated">never</string>
+    <string name="text11" translatable="false">10:00</string>
+    <string name="text1130" translatable="false">11:00</string>
+    <string name="text12" translatable="false">12:00</string>
+    <string name="text1230" translatable="false">13:00</string>
+    <string name="menu_widget" translatable="false">Widget</string>
+    <string name="channel_name" translatable="false">SPŠEiCanteen channel</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="notLoggedIn">Not logged in</string>
+    <string name="noSoupPrefix">"Soup: "</string>
+    <string name="titleToday">Today:</string>
+    <string name="titleTomorrow">Tomorrow:</string>
+    <string name="title2Tomorrow">Day after tomorrow:</string>
+    <string name="noPopis">No orders</string>
+    <string name="lastUpdated">Last updated:</string>
+    <string name="stravaEmpty">Server SPŠE is not responding</string>
+    <string name="loadingFoodInJsonError">Wrong login data</string>
+    <string name="unknownError">Unknown error</string>
+    <string name="internetError">Can\'t connect to internet</string>
+    <string name="action_updating">Refreshing…</string>
+    <string name="autoOrderDisabled">Function disabled</string>
+    <string name="autoOrderFood1">Automatically order meal 1</string>
+    <string name="autoOrderFood2">Automatically order meal 2</string>
+    <string name="autoOrderFood3">Automatically order meal 3</string>
+    <string name="autoOrderToast0">Disabled</string>
+    <string name="autoOrderToast1">Now ordering 1</string>
+    <string name="autoOrderToast2">Now ordering 2</string>
+    <string name="autoOrderToast3">Now ordering 3</string>
+    <string name="ordered_today">"Today's order: "</string>
+    <string name="autoOrdered">"Automatically ordered on "</string>
+    <string name="autoOrderedDescr">"Was automatically ordered "</string>
+    <string name="welcomeTOS">While using this app you agree to <a href="https://jidlo.pihrt.com/tos/index.php">terms of service</a></string>
+    <string name="aboutWelcome">This application was created in order to simplify the lives of students of the Secondary Vocational School of Electrical Engineering in Pilsen when ordering meals. It has happened to me several times that I forgot to order and then I was hungry. I\'ve also added a few extra features like notifications or a widget to keep track of your lunches.     I hope that the application will serve you well and I will be happy for any comments.</string>
+    <string name="aboutOpenStore">Review app</string>
+    <string name="aboutAuthor">Author: Martin Pihrt</string>
+    <string name="aboutTesters">Testers: Vítek Fikrle and Marek Köcher</string>
+    <string name="menu_objednavky">My meals</string>
+    <string name="menu_notif">Notifications</string>
+    <string name="menu_objednej">Auto ordering</string>
+    <string name="menu_user">User settings</string>
+    <string name="menu_infobar">Information</string>
+    <string name="menu_info">About app</string>
+    <string name="lgn_change_title">New user</string>
+    <string name="lgn_btn_clear">Forget user</string>
+    <string name="field_blank">Fields cannot be empty!</string>
+    <string name="field_saved">Saved</string>
+    <string name="field_clear">User deleted</string>
+    <string name="lgn_curr_pre">Active user:</string>
+    <string name="lgn_field_name">Name</string>
+    <string name="lgn_field_pwd">Password</string>
+    <string name="lgn_btn_save">Save and login</string>
+    <string name="lgn_btn_login">Log in</string>
+    <string name="welcome1_title">Welcome!</string>
+    <string name="welcome2_title">Functions</string>
+    <string name="welcome3_title">Almost there!</string>
+    <string name="autoOrderHint">If you select the auto-order feature, existing orders will not be canceled. The application automatically orders lunch only if it is not ordered for the day.</string>
+    <string name="welcome3_description">You must log in to your school account to use the application. (The application doesn\'t share the data with anyone and uses it purely for functionality.)</string>
+    <string name="welcome2_description">The application automatically orders meals for you, sends you a lunch notification, shows you what you have today and tomorrow for lunch on the home screen and maybe much more in the future! The application needs Internet access to download ordered meals.</string>
+    <string name="welcome1_description">Thanks for downloading the application that will make your life easier! If it serves you well, I will be happy for the review. I will continue to update the application and add more features to it. Swipe left to continue…</string>
+    <string name="widgetFragment_title">Adding widget</string>
+    <string name="widgetFragment_content">To add a widget, hold your finger on the device\'s desktop, select the widget, and select the SPŠE iCanteen widget.<br />The widget displays food and soup for the current day.<br />The widget updates automatically after one hour.</string>
+    <string name="add_widget">Add widget</string>
+    <string name="channel_description">Order notifications</string>
+    <string name="notif_newFood">Notify new meals</string>
+    <string name="notif_newOrder">Send notifications with auto ordered food</string>
+    <string name="error">An error has occured</string>
+    <string name="noInternet">You need to be connected to Internet to update orders!</string>
+    <string name="lastUpdatedWTitle">Updated: never</string>
+    <string name="notifInfo">After enabling the function, a notification with the ordered food will arrive at the selected time. This also applies to automatic orders.</string>
 </resources>
-<!-- TODO přeložit do angličtiny -->

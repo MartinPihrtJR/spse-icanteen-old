@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
         val nextLayout: ConstraintLayout = view.findViewById(R.id.foodNext)
         val todayLayout: ConstraintLayout = view.findViewById(R.id.foodToday)
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
         else {
             var json = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
             json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
-            Log.i("JSON", json)
+            Log.d("JSON", json)
             try {
                 val mainObject = JSONArray(json)
                 val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
                     layoutPreferences?.edit()?.putBoolean("widgetHide", true)?.apply()
                     var errorType = mainObject[0].toString()
                     errorType = JSONObject(errorType).getString("err")
-                    Log.i("JSONerr", errorType)
+                    Log.d("JSONerr", errorType)
                     nextLayout.visibility = View.GONE
                     todayLayout.visibility = View.GONE
                     when (errorType) {
@@ -123,7 +123,7 @@ class HomeFragment : Fragment() {
 
                 }
             } catch (e: Exception){
-                Log.i("ERROR",e.toString())
+                Log.d("ERROR",e.toString())
             }
 
             }

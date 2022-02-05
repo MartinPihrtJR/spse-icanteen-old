@@ -153,7 +153,7 @@ class UserFragment : Fragment() {
         val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
         val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
         val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
-        val apikey = 1234
+        val apikey = "uIS0TDs8FumqtMWGG1wp"
         val fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
         val output: String = getDataFromUrl(fulladdr).toString()
         Log.i("DATAint", output)
