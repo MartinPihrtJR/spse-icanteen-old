@@ -45,21 +45,7 @@ import java.net.URLConnection
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.net.ssl.HttpsURLConnection
-import android.appwidget.AppWidgetManager
-
-import android.content.ComponentName
-import android.widget.RemoteViews
-
-import android.appwidget.AppWidgetProvider
-
-
-
-
-
-
-
-
-
+import android.os.Looper
 
 
 class MainActivity : AppCompatActivity() {
@@ -117,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         if (this.getSharedPreferences("first", Context.MODE_PRIVATE).getBoolean("isFirst", true)){
             val intentFirst = Intent(this, FirstSetup::class.java)
             startActivity(intentFirst)
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 replaceUserFragment()
             }, 500)
         }
@@ -155,7 +141,7 @@ class MainActivity : AppCompatActivity() {
                 AnimationUtils.loadAnimation(this, R.anim.rotate360x2) )
             Toast.makeText(this,getString(R.string.action_updating),Toast.LENGTH_LONG).show()
             //aktualizace UI
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 updateUI(this)
             }, 10000)
             }

@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.navigation.NavigationView
 import cz.pihrtm.spseicanteen.R
 
 class InfoFragment : Fragment() {

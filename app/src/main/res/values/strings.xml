@@ -42,11 +42,11 @@
     <string name="autoOrdered">"Automatically ordered on "</string>
     <string name="autoOrderedDescr">"Was automatically ordered "</string>
     <string name="welcomeTOS">While using this app you agree to <a href="https://jidlo.pihrt.com/tos/index.php">terms of service</a></string>
-    <string name="aboutWelcome">This application was created in order to simplify the lives of students of the Secondary Vocational School of Electrical Engineering in Pilsen when ordering meals. It has happened to me several times that I forgot to order and then I was hungry. I\'ve also added a few extra features like notifications or a widget to keep track of your lunches.     I hope that the application will serve you well and I will be happy for any comments.</string>
+    <string name="aboutWelcome">This application was created in order to simplify the lives of students of the Secondary Vocational School of Electrical Engineering in Pilsen when ordering meals. It has happened to me several times that I forgot to order and then I was hungry. I\'ve also added a few extra features like notifications or a widget to keep track of your lunches.\nI hope that the application will serve you well and I will be happy for any comments.</string>
     <string name="aboutOpenStore">Review app</string>
     <string name="aboutAuthor">Author: Martin Pihrt</string>
     <string name="aboutTesters">Testers: Vítek Fikrle and Marek Köcher</string>
-    <string name="menu_objednavky">My meals</string>
+    <string name="menu_objednavky">My orders</string>
     <string name="menu_notif">Notifications</string>
     <string name="menu_objednej">Auto ordering</string>
     <string name="menu_user">User settings</string>
@@ -70,12 +70,12 @@
     <string name="welcome2_description">The application automatically orders meals for you, sends you a lunch notification, shows you what you have today and tomorrow for lunch on the home screen and maybe much more in the future! The application needs Internet access to download ordered meals.</string>
     <string name="welcome1_description">Thanks for downloading the application that will make your life easier! If it serves you well, I will be happy for the review. I will continue to update the application and add more features to it. Swipe left to continue…</string>
     <string name="widgetFragment_title">Adding widget</string>
-    <string name="widgetFragment_content">To add a widget, hold your finger on the device\'s desktop, select the widget, and select the SPŠE iCanteen widget.<br />The widget displays food and soup for the current day.<br />The widget updates automatically after one hour.</string>
+    <string name="widgetFragment_content">To add a widget, hold your finger on the device\'s desktop, select the widget, and select the SPŠE iCanteen widget.\nThe widget displays food and soup for the current day.\nThe widget updates automatically after one hour.</string>
     <string name="add_widget">Add widget</string>
     <string name="channel_description">Order notifications</string>
     <string name="notif_newFood">Notify new meals</string>
-    <string name="notif_newOrder">Send notifications with auto ordered food</string>
-    <string name="error">An error has occured</string>
+    <string name="notif_newOrder">Notify auto ordered meals</string>
+    <string name="error">An error has occurred</string>
     <string name="noInternet">You need to be connected to Internet to update orders!</string>
     <string name="lastUpdatedWTitle">Updated: never</string>
     <string name="notifInfo">After enabling the function, a notification with the ordered food will arrive at the selected time. This also applies to automatic orders.</string>

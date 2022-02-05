@@ -46,7 +46,7 @@ class AppWidget : AppWidgetProvider() {
             views.setTextViewText(R.id.widgetLastUpdate, lastUpdate)
         }
         val intent = Intent(context, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         views.setOnClickPendingIntent(R.id.layoutMain, pendingIntent)
 
 
@@ -81,7 +81,7 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
         views.setTextViewText(R.id.widgetLastUpdate, lastUpdate)
     }
     val intent = Intent(context, MainActivity::class.java)
-    val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
     views.setOnClickPendingIntent(R.id.layoutMain, pendingIntent)
 
 
