@@ -4,6 +4,8 @@ package cz.pihrtm.spseicanteen
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,7 +13,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
-import android.os.StrictMode
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -35,17 +37,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
-import java.net.URLConnection
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import javax.net.ssl.HttpsURLConnection
-import android.os.Looper
 
 
 class MainActivity : AppCompatActivity() {
@@ -134,7 +127,8 @@ class MainActivity : AppCompatActivity() {
             if (internetPreferences.getBoolean("net",false)){
                 if(this.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName", "missing") != "missing"){
                     uiScope.launch(Dispatchers.IO) {
-                        getJsonOnetime(this@MainActivity)
+                        GetJson().getFood(this@MainActivity)
+
                     }
                 }
             refreshButton.startAnimation(
@@ -185,73 +179,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun getJsonOnetime(context: Context?){
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        val preferences = context?.getSharedPreferences("update",Context.MODE_PRIVATE)
-        StrictMode.setThreadPolicy(policy)
-        val addr = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno="
-        val name = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing")
-        val pwd = context?.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing")
-        val objednej = context?.getSharedPreferences("objednavkySettings", Context.MODE_PRIVATE)?.getString("objednej", "null")
-        val apikey = "uIS0TDs8FumqtMWGG1wp"
-        val fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$objednej"
-        Log.d("GETjsonOT", fulladdr)
-        val output: String = getDataFromUrl(fulladdr).toString()
-        val filename = "jidla.json"
-        context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it?.write(output.toByteArray())
-        }
-        Log.d("OutputJson", output)
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
-        val lastUpdate = current.format(formatter)
-        if (preferences != null) {
-            with (preferences.edit()) {
-                putString("lastDate", lastUpdate)
-                apply()
-            }
-        }
-
-
-    }
-
-    private fun getDataFromUrl(demoIdUrl: String): String? {
-        var result: String? = null
-        val resCode: Int
-        val input: InputStream
-        try {
-            val url = URL(demoIdUrl)
-            val urlConn: URLConnection = url.openConnection()
-            val httpsConn: HttpsURLConnection = urlConn as HttpsURLConnection
-            httpsConn.allowUserInteraction = false
-            httpsConn.instanceFollowRedirects = true
-            httpsConn.requestMethod = "GET"
-            httpsConn.connect()
-            resCode = httpsConn.responseCode
-            if (resCode == HttpURLConnection.HTTP_OK) {
-                input = httpsConn.inputStream
-                val reader = BufferedReader(
-                    InputStreamReader(
-                    input, "iso-8859-1"), 8)
-                val sb = StringBuilder()
-                var line: String?
-                while (reader.readLine().also { line = it } != null) {
-                    sb.append(line).append("\n")
-                }
-                input.close()
-                result = sb.toString()
-            } else {
-                val output = "[{\"err\":\"strava empty\"}]"
-                val filename = "jidla.json"
-                this.openFileOutput(filename, Context.MODE_PRIVATE).use {
-                    it?.write(output.toByteArray())
-                }
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return result
-    }
 
     private fun updateUI(context: Context?){
         if (context?.getSharedPreferences("first", Context.MODE_PRIVATE)?.getBoolean("isFirst",true)==true){
@@ -304,6 +231,7 @@ class MainActivity : AppCompatActivity() {
                         val formatedToTomorrow = totomorrow.format(formatter)
                         val delkajson = mainObject.length() - 1
                         for (i in 0..delkajson) {
+                            var wasFound = false
                             val obed = mainObject.getJSONObject(i)
                             val datum: String = obed.getString("datum")
                             val jidlo: String = obed.getString("jidlo")
@@ -320,12 +248,27 @@ class MainActivity : AppCompatActivity() {
                                         apply()
                                     }
                                 }
+                                wasFound = true
                             }
                             if (datum == formatedTomorrow) {
                                 titleFoodTomorrow.text = jidlo
                             }
                             if (datum == formatedToTomorrow) {
                                 titleFood2Tomorrow.text = jidlo
+                            }
+                            if (i == delkajson && !wasFound){
+                                titleFoodToday.text = getString(R.string.noFoodData)
+                                titleSoupToday.text = getString(R.string.noSoupData)
+                                if (foodPreferences != null) {
+                                    with(foodPreferences.edit()) {
+                                        putString("TodayFood", getString(R.string.noFoodData))
+                                        putString("TodaySoup", getString(R.string.noSoupData))
+                                        putString("TodayPopis", getString(R.string.notif_noIdData))
+                                        apply()
+                                    }
+                                }
+                                titleFoodTomorrow.text = getString(R.string.noFoodData)
+                                titleFood2Tomorrow.text = getString(R.string.noFoodData)
                             }
 
 
@@ -343,6 +286,20 @@ class MainActivity : AppCompatActivity() {
 
                 } catch (e: Exception){
                     Log.d("UPDATEUI", "Error: $e")
+                }
+                try {
+                    val intent = Intent(this@MainActivity, AppWidget::class.java)
+                    intent.action = "android.appwidget.action.APPWIDGET_UPDATE"
+                    val ids = AppWidgetManager.getInstance(application).getAppWidgetIds(
+                        ComponentName(
+                            application,
+                            AppWidget::class.java
+                        )
+                    )
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                    sendBroadcast(intent)
+                } catch (e: Exception){
+                    Log.d("WidgetUpdateERR", e.toString())
                 }
             }
         }

@@ -210,13 +210,23 @@ class GetJson : BroadcastReceiver() {
     }
 
 
-    private fun getFood(context: Context?){
+
+    fun getFood(context: Context?){
+        preferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)!!
+        addr = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno="
+        name = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing").toString()
+        pwd = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing").toString()
+        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
+
+        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        Log.d("getFood", "Start")
         val output = getDataFromUrl(fulladdr, context).toString()
         val filename = "jidla.json"
-        context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
+        context.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(output.toByteArray())
         }
         json = output
+        Log.d("JSON", json)
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
         val lastUpdate = current.format(formatter)
@@ -234,7 +244,7 @@ class GetJson : BroadcastReceiver() {
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(fileContents.toByteArray())
         }
-        val denvTydnu = LocalDate.now().plusDays(2).dayOfWeek
+        val denvTydnu = LocalDate.now().plusDays(4).dayOfWeek
         val orderEnabled = when {
             (denvTydnu==DayOfWeek.SATURDAY)->{
                 false
@@ -253,7 +263,7 @@ class GetJson : BroadcastReceiver() {
             val mainObject = JSONArray(output)
 
             if (!JSONObject(mainObject[0].toString()).has("err")){
-                val current = LocalDateTime.now().plusDays(2)
+                val current = LocalDateTime.now().plusDays(4)
                 val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
                 val datumobedu = current.format(formatter)
                 val delkajson = mainObject.length() - 1
@@ -261,7 +271,7 @@ class GetJson : BroadcastReceiver() {
                     val obed = mainObject.getJSONObject(i)
                     val datum: String = obed.getString("datum")
                     if (datumobedu!==datum){
-                        val currentOrder = LocalDateTime.now().plusDays(2)
+                        val currentOrder = LocalDateTime.now().plusDays(4)
                         val formatterOrder = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         datumobednavky = currentOrder.format(formatterOrder)
                         prikaz = "$mode,$datumobednavky,make"
