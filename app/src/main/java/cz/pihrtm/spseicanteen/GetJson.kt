@@ -119,6 +119,7 @@ class GetJson : BroadcastReceiver() {
             val replus = context.getSharedPreferences("repeat",Context.MODE_PRIVATE).getInt("repeat",0) + 1
             context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",replus).apply()
         }
+        //TODO notif se nepošle když neni objednáno
         if (notifPref.getBoolean("newEnabled",false)){
             val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toString().toInt()
             when (notifPref.getInt("time",10)){
