@@ -245,6 +245,7 @@ class MainActivity : AppCompatActivity() {
                                         putString("TodayFood", jidlo)
                                         putString("TodaySoup", polevka)
                                         putString("TodayPopis", id)
+                                        putBoolean("TodayNotif", true)
                                         apply()
                                     }
                                 }
@@ -264,6 +265,7 @@ class MainActivity : AppCompatActivity() {
                                         putString("TodayFood", getString(R.string.noFoodData))
                                         putString("TodaySoup", getString(R.string.noSoupData))
                                         putString("TodayPopis", getString(R.string.notif_noIdData))
+                                        putBoolean("TodayNotif", false)
                                         apply()
                                     }
                                 }
