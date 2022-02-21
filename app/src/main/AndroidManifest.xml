@@ -22,7 +22,6 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/Theme.SPŠEICanteen.NoActionBar"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
@@ -48,6 +47,13 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="GetJson" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".MyBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

@@ -119,7 +119,7 @@ class GetJson : BroadcastReceiver() {
             val replus = context.getSharedPreferences("repeat",Context.MODE_PRIVATE).getInt("repeat",0) + 1
             context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",replus).apply()
         }
-        
+
 
         if (foodPref.getBoolean("TodayNotif", false)) {
             if (notifPref.getBoolean("newEnabled",false)){
@@ -356,6 +356,7 @@ class GetJson : BroadcastReceiver() {
     }
 
     private fun saveToPrefs(context: Context?) {
+        try{
         val mainObject = JSONArray(json)
         val foodPreferences = context?.getSharedPreferences("savedFood", Context.MODE_PRIVATE)
         val layoutPreferences = context?.getSharedPreferences("widgetLayout", Context.MODE_PRIVATE)
@@ -395,5 +396,8 @@ class GetJson : BroadcastReceiver() {
             layoutPreferences?.edit()?.putString("lastUpdate", context.getSharedPreferences("update", Context.MODE_PRIVATE)
                 ?.getString("lastDate", context.getString(R.string.notYetUpdated)))?.apply()
         }
+    } catch (e: Exception){
+        Log.i("ParseError", e.toString())
+    }
     }
 }
