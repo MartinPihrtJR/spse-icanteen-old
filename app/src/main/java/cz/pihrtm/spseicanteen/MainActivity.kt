@@ -151,10 +151,7 @@ class MainActivity : AppCompatActivity() {
     private fun replaceUserFragment() {
         Log.d("replaceFragment", "OK")
         val navView: NavigationView = findViewById(R.id.nav_view)
-        navView.menu.getItem(0).isChecked = false
-        navView.menu.getItem(3).isChecked = true
-        val navController = findNavController(R.id.nav_host_fragment)
-        navController.navigate(R.id.nav_user)
+        navView.menu.performIdentifierAction(R.id.nav_user, 0)
     }
 
 

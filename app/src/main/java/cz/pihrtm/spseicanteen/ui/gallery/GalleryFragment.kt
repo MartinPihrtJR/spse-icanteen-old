@@ -37,7 +37,7 @@ class GalleryFragment : Fragment() {
             if (preferences?.getBoolean("newEnabled", false) == true){
                 swNew.isChecked = true
                 buttonsView.visibility = View.VISIBLE
-                when (preferences.getInt("time",11)){
+                when (preferences.getInt("time",10)){
                     10 ->{
                         buttonsView.check(R.id.notif1)
                     }
@@ -55,7 +55,7 @@ class GalleryFragment : Fragment() {
             else {
                 swNew.isChecked = false
                 buttonsView.visibility = View.GONE
-                when (preferences?.getInt("time",11)){
+                when (preferences?.getInt("time",10)){
                     10 ->{
                         buttonsView.check(R.id.notif1)
                     }
@@ -77,12 +77,12 @@ class GalleryFragment : Fragment() {
         swNew.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 preferences?.edit()?.putBoolean("newEnabled", true)?.apply()
-                Log.i("swOrder", preferences?.getBoolean("newEnabled", false).toString())
+                Log.i("swNew", preferences?.getBoolean("newEnabled", false).toString())
                 setNewLayout()
             }
             else{
                 preferences?.edit()?.putBoolean("newEnabled", false)?.apply()
-                Log.i("swOrder", preferences?.getBoolean("newEnabled", false).toString())
+                Log.i("swNew", preferences?.getBoolean("newEnabled", false).toString())
                 setNewLayout()
             }
         }

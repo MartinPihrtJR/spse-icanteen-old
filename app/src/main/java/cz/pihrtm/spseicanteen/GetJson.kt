@@ -2,10 +2,8 @@ package cz.pihrtm.spseicanteen
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.appwidget.AppWidgetManager
+import android.content.*
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.StrictMode
@@ -123,7 +121,7 @@ class GetJson : BroadcastReceiver() {
 
         if (foodPref.getBoolean("TodayNotif", false)) {
             if (notifPref.getBoolean("newEnabled",false)){
-                val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toString().toInt()
+                val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toInt()
                 when (notifPref.getInt("time",10)){
                     10 -> {
                         if (hrs==10) {
@@ -193,11 +191,31 @@ class GetJson : BroadcastReceiver() {
             }
 
         }
+        updateWidget(context)
 
 
 
 
 
+
+
+    }
+
+    private fun updateWidget(context: Context){
+        try {
+            val intentWidget = Intent(context, AppWidget::class.java)
+            intentWidget.action = "android.appwidget.action.APPWIDGET_UPDATE"
+            val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(
+                ComponentName(
+                    context,
+                    AppWidget::class.java
+                )
+            )
+            intentWidget.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            context.sendBroadcast(intentWidget)
+        } catch (e: Exception){
+            Log.d("WidgetUpdateERR", e.toString())
+        }
     }
 
     private fun createNotificationChannel(context: Context?) {
