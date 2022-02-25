@@ -42,7 +42,8 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextPwd"
@@ -54,7 +55,8 @@
         android:inputType="textPassword"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        android:autofillHints="" />
 
     <View
         android:id="@+id/divider"
@@ -106,18 +108,23 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:contentDescription="@string/viewpwd"
         app:icon="@drawable/ic_baseline_remove_red_eye_24"
         app:iconTint="@color/material_on_background_emphasis_medium"
         app:layout_constraintBottom_toTopOf="@+id/buttonLgnSave"
         app:layout_constraintStart_toEndOf="@+id/editTextPwd" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="164dp"
-        android:layout_height="301dp"
-        android:rotation="90"
-        android:src="@mipmap/vitaSUS"
+        android:id="@+id/vitekSecret"
+        android:layout_width="101dp"
+        android:layout_height="125dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/aboutTesters"
+        android:src="@drawable/vita"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLgnSave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLgnClear" />
+        app:layout_constraintStart_toEndOf="@+id/btnViewPwd"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

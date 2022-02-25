@@ -47,10 +47,10 @@
         android:layout_marginTop="32dp"
         android:text="@string/welcomeTOS"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintTop_toBottomOf="@+id/secretText" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/secretText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -11,10 +11,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import cz.pihrtm.spseicanteen.GetJson
@@ -46,6 +43,7 @@ class UserFragment : Fragment() {
         val saveBtn: Button = view.findViewById(R.id.buttonLgnSave)
         val clearBtn: Button = view.findViewById(R.id.buttonLgnClear)
         val viewPwdBtn: Button = view.findViewById(R.id.btnViewPwd)
+        val vitek: ImageView = view.findViewById(R.id.vitekSecret)
         val sharedPref = activity?.getSharedPreferences("creds", Context.MODE_PRIVATE)
         var name: String
         var pwd: String
@@ -53,6 +51,32 @@ class UserFragment : Fragment() {
         //********************************
         val loggedUsr = sharedPref?.getString("savedName", "-")
         lgnUser.text = loggedUsr
+
+        if (context?.getSharedPreferences("secret", Context.MODE_PRIVATE)!!.getBoolean("enabled", true)){
+        when (loggedUsr) {
+            "fikrlev" -> {
+                vitek.setImageResource(R.drawable.vita)
+                vitek.visibility = View.VISIBLE
+            }
+            "kocherm" -> {
+                vitek.setImageResource(R.drawable.marek)
+                vitek.visibility = View.VISIBLE
+            }
+            "hosekm" -> {
+                vitek.setImageResource(R.drawable.hosek)
+                vitek.visibility = View.VISIBLE
+            }
+            "pihrtm" -> {
+                vitek.setImageResource(R.drawable.pi)
+                vitek.visibility = View.VISIBLE
+            }
+            else -> {
+                vitek.visibility = View.GONE
+            }
+        }}
+        else{
+            vitek.visibility = View.GONE
+        }
 
         viewPwdBtn.setOnTouchListener(
                 OnTouchListener { _, event ->
@@ -81,6 +105,31 @@ class UserFragment : Fragment() {
                 Toast.makeText(context, getString(R.string.field_blank), Toast.LENGTH_LONG).show()
             }
             else {
+                if (context?.getSharedPreferences("secret", Context.MODE_PRIVATE)!!.getBoolean("enabled", true)){
+                    when (name) {
+                        "fikrlev" -> {
+                            vitek.setImageResource(R.drawable.vita)
+                            vitek.visibility = View.VISIBLE
+                        }
+                        "kocherm" -> {
+                            vitek.setImageResource(R.drawable.marek)
+                            vitek.visibility = View.VISIBLE
+                        }
+                        "hosekm" -> {
+                            vitek.setImageResource(R.drawable.hosek)
+                            vitek.visibility = View.VISIBLE
+                        }
+                        "pihrtm" -> {
+                            vitek.setImageResource(R.drawable.pi)
+                            vitek.visibility = View.VISIBLE
+                        }
+                        else -> {
+                            vitek.visibility = View.GONE
+                        }
+                    }}
+                else{
+                    vitek.visibility = View.GONE
+                }
                 if (sharedPref != null) {
                     with(sharedPref.edit()) {
                         putString("savedName", name)

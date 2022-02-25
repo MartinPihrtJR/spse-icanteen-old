@@ -1,5 +1,6 @@
 package cz.pihrtm.spseicanteen.ui.info
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,9 +24,10 @@ class InfoFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        userViewModel = ViewModelProvider(this).get(InfoViewModel::class.java)
+        userViewModel = ViewModelProvider(this)[InfoViewModel::class.java]
         val view = inflater.inflate(R.layout.fragment_info, container, false)
         val button: Button = view.findViewById(R.id.buttonStore)
+        val secret: TextView = view.findViewById(R.id.secretText)
         val text:TextView = view.findViewById(R.id.tosText)
         button.setOnClickListener {
             try {
@@ -35,6 +37,20 @@ class InfoFragment : Fragment() {
             }
 
         }
+        secret.setOnClickListener {
+            if (context?.getSharedPreferences("secret", Context.MODE_PRIVATE)?.getBoolean("enabled", true) == true){
+                context?.getSharedPreferences("secret", Context.MODE_PRIVATE)!!
+                    .edit().putBoolean("enabled", false).apply()
+                Toast.makeText(context, getString(R.string.secretDis), Toast.LENGTH_SHORT).show()
+            }
+            else{
+                context?.getSharedPreferences("secret", Context.MODE_PRIVATE)!!
+                    .edit().putBoolean("enabled", true).apply()
+                Toast.makeText(context, getString(R.string.secretEn), Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
         text.movementMethod = LinkMovementMethod.getInstance()
         return view
     }

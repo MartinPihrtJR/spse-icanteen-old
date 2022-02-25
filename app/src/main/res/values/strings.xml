@@ -45,7 +45,7 @@
     <string name="aboutWelcome">This application was created in order to simplify the lives of students of the Secondary Vocational School of Electrical Engineering in Pilsen when ordering meals. It has happened to me several times that I forgot to order and then I was hungry. I\'ve also added a few extra features like notifications or a widget to keep track of your lunches.\nI hope that the application will serve you well and I will be happy for any comments.</string>
     <string name="aboutOpenStore">Review app</string>
     <string name="aboutAuthor">Author: Martin Pihrt</string>
-    <string name="aboutTesters">Testers: Vítek Fikrle and Marek Köcher</string>
+    <string name="aboutTesters">Testers: Vítek Fikrle, Marek Köcher and Martin Hošek</string>
     <string name="menu_objednavky">My orders</string>
     <string name="menu_notif">Notifications</string>
     <string name="menu_objednej">Auto ordering</string>
@@ -80,4 +80,7 @@
     <string name="noInternet">You need to be connected to Internet to update orders!</string>
     <string name="lastUpdatedWTitle">Updated: never</string>
     <string name="notifInfo">After enabling the function, a notification with the ordered food will arrive at the selected time. This also applies to automatic orders.</string>
+    <string name="viewpwd" translatable="false">Show password</string>
+    <string name="secretDis" translatable="false">Secret disabled</string>
+    <string name="secretEn" translatable="false">Secret enabled</string>
 </resources>
