@@ -251,7 +251,7 @@ class GetJson : BroadcastReceiver() {
         json = output
         Log.d("JSON", json)
         val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val lastUpdate = current.format(formatter)
         with(preferences.edit()) {
             putString("lastDate", lastUpdate)
