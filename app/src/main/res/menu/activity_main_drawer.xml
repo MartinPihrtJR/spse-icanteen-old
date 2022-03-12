@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_jidla"
             android:title="@string/menu_objednavky" />
         <item
+            android:id="@+id/nav_orderlist"
+            android:icon="@drawable/ic_view_list"
+            android:title="@string/menu_orderlist" />
+        <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_notif"
             android:title="@string/menu_notif" />
@@ -26,11 +30,11 @@
             <item
                 android:id="@+id/nav_widget"
                 android:icon="@drawable/ic_widget"
-                android:title="@string/menu_widget"></item>
+                android:title="@string/menu_widget" />
             <item
                 android:id="@+id/nav_info"
                 android:icon="@drawable/ic_info"
-                android:title="@string/menu_info"></item>
+                android:title="@string/menu_info" />
         </menu>
     </item>
 </menu>
