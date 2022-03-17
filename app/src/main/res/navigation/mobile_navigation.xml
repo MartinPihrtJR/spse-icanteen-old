@@ -16,11 +16,7 @@
         android:name="cz.pihrtm.spseicanteen.ui.gallery.GalleryFragment"
         android:label="@string/menu_notif"
         tools:layout="@layout/fragment_gallery" />
-    <fragment
-        android:id="@+id/nav_orderlist"
-        android:name="cz.pihrtm.spseicanteen.ui.orderlist.OrderlistFragment"
-        android:label="@string/menu_orderlist"
-        tools:layout="@layout/fragment_orderlist" />
+
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="cz.pihrtm.spseicanteen.ui.slideshow.SlideshowFragment"

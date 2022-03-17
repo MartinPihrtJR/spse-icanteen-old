@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                         R.id.nav_gallery,
                         R.id.nav_slideshow,
                         R.id.nav_user,
-                        R.id.nav_orderlist,
                 ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -106,10 +105,10 @@ class MainActivity : AppCompatActivity() {
 
                 val repeatTime = 1200 //Repeat alarm time in seconds - 20 min
 
-                val processTimer: AlarmManager? = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager?
-                val intent = Intent(applicationContext, GetJson::class.java)
+                val processTimer: AlarmManager? = this.getSystemService(ALARM_SERVICE) as AlarmManager?
+                val intent = Intent(this, GetJson::class.java)
                 val pendingIntent =
-                        PendingIntent.getBroadcast(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+                        PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
                 processTimer!!.setRepeating(
                         AlarmManager.RTC_WAKEUP,
                         System.currentTimeMillis(),

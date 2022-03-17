@@ -66,6 +66,10 @@ class UserFragment : Fragment() {
                 vitek.setImageResource(R.drawable.hosek)
                 vitek.visibility = View.VISIBLE
             }
+            "pihrtm" -> {
+                vitek.setImageResource(R.drawable.pi)
+                vitek.visibility = View.VISIBLE
+            }
             else -> {
                 vitek.visibility = View.GONE
             }
@@ -113,6 +117,10 @@ class UserFragment : Fragment() {
                         }
                         "hosekm" -> {
                             vitek.setImageResource(R.drawable.hosek)
+                            vitek.visibility = View.VISIBLE
+                        }
+                        "pihrtm" -> {
+                            vitek.setImageResource(R.drawable.pi)
                             vitek.visibility = View.VISIBLE
                         }
                         else -> {

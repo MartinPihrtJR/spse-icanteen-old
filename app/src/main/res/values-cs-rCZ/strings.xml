@@ -37,7 +37,6 @@
     <string name="aboutAuthor">Autor: Martin Pihrt</string>
     <string name="aboutTesters">Testeři: Vítek Fikrle, Marek Köcher a Martin Hošek</string>
     <string name="menu_objednavky">Moje objednávky</string>
-    <string name="menu_orderlist">Seznam obědnávek</string>
     <string name="menu_notif">Oznámení</string>
     <string name="menu_objednej">Auto objednávání</string>
     <string name="menu_user">Změna uživatele</string>
