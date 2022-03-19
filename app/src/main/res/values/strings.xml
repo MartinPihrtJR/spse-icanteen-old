@@ -83,5 +83,4 @@
     <string name="viewpwd" translatable="false">Show password</string>
     <string name="secretDis" translatable="false">Secret disabled</string>
     <string name="secretEn" translatable="false">Secret enabled</string>
-    <string name="turnedOff">Turn off</string>
 </resources>
