@@ -53,7 +53,8 @@ class GetJson : BroadcastReceiver() {
         val foodPref = context.getSharedPreferences("savedFood",Context.MODE_PRIVATE)
         val internetPreferences = context.getSharedPreferences("internet",Context.MODE_PRIVATE)
         val builder: NotificationCompat.Builder
-        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
+        val verze = BuildConfig.VERSION_NAME
+        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null&ver=$verze"
         createNotificationChannel(context) //create channel for notification
         fun isOnline(): Boolean {
             val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -122,68 +123,110 @@ class GetJson : BroadcastReceiver() {
         if (foodPref.getBoolean("TodayNotif", false)) {
             if (notifPref.getBoolean("newEnabled",false)){
                 val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toInt()
-                when (notifPref.getInt("time",10)){
-                    10 -> {
-                        if (hrs==10) {
-                            val title = context.getString(R.string.ordered_today)+" " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
-                            val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                            builder = NotificationCompat.Builder(context, channelId)
+                val denvTydnu = LocalDate.now().plusDays(4).dayOfWeek
+                val orderEnabled = when {
+                    (denvTydnu==DayOfWeek.SATURDAY)->{
+                        false
+                    }
+                    (denvTydnu==DayOfWeek.SUNDAY)->{
+                        false
+                    }
+                    else->{
+                        true
+                    }
+                }
+                if (orderEnabled) {
+                    when (notifPref.getInt("time", 10)) {
+                        10 -> {
+                            if (hrs == 10) {
+                                val title =
+                                    context.getString(R.string.ordered_today) + " " + foodPref.getString(
+                                        "TodayPopis",
+                                        context.getString(R.string.noPopis)
+                                    )
+                                val description = foodPref.getString(
+                                    "TodayFood",
+                                    context.getString(R.string.noFoodData)
+                                )
+                                builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            val notificationId = 852
-                            with(NotificationManagerCompat.from(context)) {
-                                // notificationId is a unique int for each notification that you must define
-                                notify(notificationId, builder.build())
+                                val notificationId = 852
+                                with(NotificationManagerCompat.from(context)) {
+                                    // notificationId is a unique int for each notification that you must define
+                                    notify(notificationId, builder.build())
+                                }
                             }
                         }
-                    }
-                    11 -> {
-                        if (hrs==11) {
-                            val title = context.getString(R.string.ordered_today)+ " " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
-                            val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                            builder = NotificationCompat.Builder(context, channelId)
+                        11 -> {
+                            if (hrs == 11) {
+                                val title =
+                                    context.getString(R.string.ordered_today) + " " + foodPref.getString(
+                                        "TodayPopis",
+                                        context.getString(R.string.noPopis)
+                                    )
+                                val description = foodPref.getString(
+                                    "TodayFood",
+                                    context.getString(R.string.noFoodData)
+                                )
+                                builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            val notificationId = 852
-                            with(NotificationManagerCompat.from(context)) {
-                                // notificationId is a unique int for each notification that you must define
-                                notify(notificationId, builder.build())
+                                val notificationId = 852
+                                with(NotificationManagerCompat.from(context)) {
+                                    // notificationId is a unique int for each notification that you must define
+                                    notify(notificationId, builder.build())
+                                }
                             }
                         }
-                    }
-                    12 -> {
-                        if (hrs==12) {
-                            val title = context.getString(R.string.ordered_today)+ " " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
-                            val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                            builder = NotificationCompat.Builder(context, channelId)
+                        12 -> {
+                            if (hrs == 12) {
+                                val title =
+                                    context.getString(R.string.ordered_today) + " " + foodPref.getString(
+                                        "TodayPopis",
+                                        context.getString(R.string.noPopis)
+                                    )
+                                val description = foodPref.getString(
+                                    "TodayFood",
+                                    context.getString(R.string.noFoodData)
+                                )
+                                builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            val notificationId = 852
-                            with(NotificationManagerCompat.from(context)) {
-                                // notificationId is a unique int for each notification that you must define
-                                notify(notificationId, builder.build())
+                                val notificationId = 852
+                                with(NotificationManagerCompat.from(context)) {
+                                    // notificationId is a unique int for each notification that you must define
+                                    notify(notificationId, builder.build())
+                                }
                             }
                         }
-                    }
-                    13 -> {
-                        if (hrs==13) {
-                            val title = context.getString(R.string.ordered_today)+ " " + foodPref.getString("TodayPopis",context.getString(R.string.noPopis))
-                            val description = foodPref.getString("TodayFood", context.getString(R.string.noFoodData))
-                            builder = NotificationCompat.Builder(context, channelId)
+                        13 -> {
+                            if (hrs == 13) {
+                                val title =
+                                    context.getString(R.string.ordered_today) + " " + foodPref.getString(
+                                        "TodayPopis",
+                                        context.getString(R.string.noPopis)
+                                    )
+                                val description = foodPref.getString(
+                                    "TodayFood",
+                                    context.getString(R.string.noFoodData)
+                                )
+                                builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            val notificationId = 852
-                            with(NotificationManagerCompat.from(context)) {
-                                // notificationId is a unique int for each notification that you must define
-                                notify(notificationId, builder.build())
+                                val notificationId = 852
+                                with(NotificationManagerCompat.from(context)) {
+                                    // notificationId is a unique int for each notification that you must define
+                                    notify(notificationId, builder.build())
+                                }
                             }
                         }
                     }
@@ -239,7 +282,8 @@ class GetJson : BroadcastReceiver() {
         addr = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno="
         name = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing").toString()
         pwd = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing").toString()
-        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
+        val verze = BuildConfig.VERSION_NAME
+        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null&ver=$verze"
 
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         Log.d("getFood", "Start")
@@ -302,7 +346,8 @@ class GetJson : BroadcastReceiver() {
                 }
             }
         }
-        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$prikaz"
+        val verze = BuildConfig.VERSION_NAME
+        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=$prikaz&ver=$verze"
         val notifPref = context?.getSharedPreferences("notif",Context.MODE_PRIVATE)
         if (notifPref!!.getBoolean("orderEnabled",false)){
             val title = context.getString(R.string.autoOrdered) + LocalDateTime.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
