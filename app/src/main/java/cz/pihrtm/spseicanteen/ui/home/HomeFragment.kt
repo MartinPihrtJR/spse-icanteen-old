@@ -1,19 +1,21 @@
 package cz.pihrtm.spseicanteen.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import cz.pihrtm.spseicanteen.GetJson
 import cz.pihrtm.spseicanteen.R
 import org.json.JSONArray
 import org.json.JSONObject
-import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -37,6 +39,7 @@ class HomeFragment : Fragment() {
         val titleFoodTomorrow: TextView = view.findViewById(R.id.titleFoodTomorrow)
         val titleFood2Tomorrow: TextView = view.findViewById(R.id.titleFood2Tomorrow)
         val lastDate: TextView = view.findViewById(R.id.lastUpdated)
+        val testBtn: Button = view.findViewById(R.id.buttonTest)
 
 
         if (context?.getSharedPreferences("first", Context.MODE_PRIVATE)?.getBoolean("isFirst",true)==true){
@@ -125,6 +128,11 @@ class HomeFragment : Fragment() {
             }
 
             }
+
+        testBtn.setOnClickListener{
+            val i = Intent(context, GetJson::class.java)
+            context?.sendBroadcast(i)
+        }
 
 
 

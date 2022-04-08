@@ -2,6 +2,7 @@ package cz.pihrtm.spseicanteen
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.*
 import android.net.ConnectivityManager
@@ -123,7 +124,8 @@ class GetJson : BroadcastReceiver() {
         if (foodPref.getBoolean("TodayNotif", false)) {
             if (notifPref.getBoolean("newEnabled",false)){
                 val hrs = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toInt()
-                val denvTydnu = LocalDate.now().plusDays(4).dayOfWeek
+                val denvTydnu = LocalDate.now().dayOfWeek
+                Log.d("DoW", denvTydnu.toString())
                 val orderEnabled = when {
                     (denvTydnu==DayOfWeek.SATURDAY)->{
                         false
@@ -148,11 +150,16 @@ class GetJson : BroadcastReceiver() {
                                     "TodayFood",
                                     context.getString(R.string.noFoodData)
                                 )
+                                val notificationIntent = Intent(context, MainActivity::class.java)
+                                val intentNotif = PendingIntent.getActivity(
+                                    context, 0,
+                                    notificationIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
                                 builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(intentNotif)
                                 val notificationId = 852
                                 with(NotificationManagerCompat.from(context)) {
                                     // notificationId is a unique int for each notification that you must define
@@ -171,11 +178,16 @@ class GetJson : BroadcastReceiver() {
                                     "TodayFood",
                                     context.getString(R.string.noFoodData)
                                 )
+                                val notificationIntent = Intent(context, MainActivity::class.java)
+                                val intentNotif = PendingIntent.getActivity(
+                                    context, 0,
+                                    notificationIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
                                 builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(intentNotif)
                                 val notificationId = 852
                                 with(NotificationManagerCompat.from(context)) {
                                     // notificationId is a unique int for each notification that you must define
@@ -194,11 +206,16 @@ class GetJson : BroadcastReceiver() {
                                     "TodayFood",
                                     context.getString(R.string.noFoodData)
                                 )
+                                val notificationIntent = Intent(context, MainActivity::class.java)
+                                val intentNotif = PendingIntent.getActivity(
+                                    context, 0,
+                                    notificationIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
                                 builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(intentNotif)
                                 val notificationId = 852
                                 with(NotificationManagerCompat.from(context)) {
                                     // notificationId is a unique int for each notification that you must define
@@ -217,11 +234,16 @@ class GetJson : BroadcastReceiver() {
                                     "TodayFood",
                                     context.getString(R.string.noFoodData)
                                 )
+                                val notificationIntent = Intent(context, MainActivity::class.java)
+                                val intentNotif = PendingIntent.getActivity(
+                                    context, 0,
+                                    notificationIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
                                 builder = NotificationCompat.Builder(context, channelId)
                                     .setSmallIcon(R.drawable.ic_jidla)
                                     .setContentTitle(title)
                                     .setContentText(description)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(intentNotif)
                                 val notificationId = 852
                                 with(NotificationManagerCompat.from(context)) {
                                     // notificationId is a unique int for each notification that you must define
@@ -304,7 +326,7 @@ class GetJson : BroadcastReceiver() {
         saveToPrefs(context)
     }
 
-    private fun orderFood(context: Context?,mode: Int){
+    fun orderFood(context: Context?,mode: Int){
         var output = getDataFromUrl(fulladdr, context).toString()
         val filename = "jidla.json"
         val fileContents = output
@@ -375,6 +397,10 @@ class GetJson : BroadcastReceiver() {
             fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null"
             getFood(context)
         }
+    }
+
+    fun getFoodList(){
+
     }
 
 

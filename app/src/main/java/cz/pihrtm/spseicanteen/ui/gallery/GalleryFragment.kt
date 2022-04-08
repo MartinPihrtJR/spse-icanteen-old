@@ -77,12 +77,12 @@ class GalleryFragment : Fragment() {
         swNew.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 preferences?.edit()?.putBoolean("newEnabled", true)?.apply()
-                Log.i("swNew", preferences?.getBoolean("newEnabled", false).toString())
+                Log.d("swNew", preferences?.getBoolean("newEnabled", false).toString())
                 setNewLayout()
             }
             else{
                 preferences?.edit()?.putBoolean("newEnabled", false)?.apply()
-                Log.i("swNew", preferences?.getBoolean("newEnabled", false).toString())
+                Log.d("swNew", preferences?.getBoolean("newEnabled", false).toString())
                 setNewLayout()
             }
         }
@@ -90,12 +90,12 @@ class GalleryFragment : Fragment() {
         swOrder.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 preferences?.edit()?.putBoolean("orderEnabled", true)?.apply()
-                Log.i("swOrder", preferences?.getBoolean("orderEnabled", false).toString())
+                Log.d("swOrder", preferences?.getBoolean("orderEnabled", false).toString())
                 setNewLayout()
             }
             else{
                 preferences?.edit()?.putBoolean("orderEnabled", false)?.apply()
-                Log.i("swOrder", preferences?.getBoolean("orderEnabled", false).toString())
+                Log.d("swOrder", preferences?.getBoolean("orderEnabled", false).toString())
                 setNewLayout()
             }
         }
