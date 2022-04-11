@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_view_list"
             android:title="@string/menu_orderlist" />
         <item
+            android:id="@+id/nav_ordering"
+            android:icon="@drawable/ic_ordering"
+            android:title="@string/menu_ordering" />
+        <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_notif"
             android:title="@string/menu_notif" />

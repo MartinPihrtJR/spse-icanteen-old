@@ -113,6 +113,9 @@ class GetJson : BroadcastReceiver() {
 
                 }
             }
+            if (internetPreferences.getBoolean("net",false)){
+                getFoodList(context)
+            }
             context.getSharedPreferences("repeat",Context.MODE_PRIVATE).edit().putInt("repeat",0).apply()
         }
         else {
@@ -310,7 +313,7 @@ class GetJson : BroadcastReceiver() {
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         Log.d("getFood", "Start")
         val output = getDataFromUrl(fulladdr, context).toString()
-        val filename = "jidla.json"
+        val filename = "orders.json"
         context.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(output.toByteArray())
         }
@@ -328,7 +331,7 @@ class GetJson : BroadcastReceiver() {
 
     fun orderFood(context: Context?,mode: Int){
         var output = getDataFromUrl(fulladdr, context).toString()
-        val filename = "jidla.json"
+        val filename = "orders.json"
         val fileContents = output
         context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(fileContents.toByteArray())
@@ -399,8 +402,14 @@ class GetJson : BroadcastReceiver() {
         }
     }
 
-    fun getFoodList(){
-
+    fun getFoodList(context: Context){
+        addr = "https://jidlo.pihrt.com/nacti_list.php"
+        val output = getDataFromUrl(addr, context).toString()
+        val filename = "foodlist.json"
+        context.openFileOutput(filename, Context.MODE_PRIVATE).use {
+            it?.write(output.toByteArray())
+        }
+        Log.d("getFoodList", "DONE")
     }
 
 
@@ -433,7 +442,11 @@ class GetJson : BroadcastReceiver() {
                 result = sb.toString()
             } else{
                 val output = "[{\"err\":\"strava empty\"}]"
-                val filename = "jidla.json"
+                var filename = "orders.json"
+                context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                    it?.write(output.toByteArray())
+                }
+                filename = "foodlist.json"
                 context?.openFileOutput(filename, Context.MODE_PRIVATE).use {
                     it?.write(output.toByteArray())
                 }

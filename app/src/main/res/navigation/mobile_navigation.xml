@@ -22,6 +22,11 @@
         android:label="@string/menu_orderlist"
         tools:layout="@layout/fragment_orderlist" />
     <fragment
+        android:id="@+id/nav_ordering"
+        android:name="cz.pihrtm.spseicanteen.ui.ordering.OrderingFragment"
+        android:label="@string/menu_ordering"
+        tools:layout="@layout/fragment_ordering" />
+    <fragment
         android:id="@+id/nav_slideshow"
         android:name="cz.pihrtm.spseicanteen.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_objednej"

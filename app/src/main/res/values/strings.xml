@@ -50,6 +50,7 @@
     <string name="menu_notif">Notifications</string>
     <string name="menu_objednej">Auto ordering</string>
     <string name="menu_orderlist">Order list</string>
+    <string name="menu_ordering">Food ordering</string>
     <string name="menu_user">User settings</string>
     <string name="menu_infobar">Information</string>
     <string name="menu_info">About app</string>

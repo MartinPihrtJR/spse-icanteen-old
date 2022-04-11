@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                         R.id.nav_slideshow,
                         R.id.nav_user,
                         R.id.nav_orderlist,
+                        R.id.nav_ordering,
                 ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -161,7 +162,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val userTextView: TextView = findViewById(R.id.userTextView)
-        if (navView.menu.getItem(3).isChecked){
+        if (navView.menu.getItem(4).isChecked){
             hideKeyboard()}
         userTextView.text = getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName",getString(R.string.notLoggedIn))
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()

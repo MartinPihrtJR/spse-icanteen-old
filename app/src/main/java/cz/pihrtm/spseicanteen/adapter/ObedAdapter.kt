@@ -23,7 +23,7 @@ class ObedAdapter(val list: Array<Obed?>) : RecyclerView.Adapter<ObedAdapter.Ite
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val view = holder.itemView
-        val datum = view.findViewById<TextView>(R.id.rv_Datum)
+        val datum = view.findViewById<TextView>(R.id.ob_Datum)
         val obed = view.findViewById<TextView>(R.id.rv_Obed)
         datum.text = list[position]?.datum
         obed.text = list[position]?.obed
