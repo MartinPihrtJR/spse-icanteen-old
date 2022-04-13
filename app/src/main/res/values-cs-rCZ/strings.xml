@@ -44,6 +44,7 @@
     <string name="menu_user">Změna uživatele</string>
     <string name="menu_infobar">Informace</string>
     <string name="menu_info">O aplikaci</string>
+    <string name="ordering_noOrdered">Neobjednáno</string>
     <string name="lgn_change_title">Nový uživatel</string>
     <string name="lgn_btn_clear">Smazat uživatele</string>
     <string name="field_blank">Pole nesmí být prázdná!</string>

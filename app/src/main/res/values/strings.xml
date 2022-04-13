@@ -54,6 +54,7 @@
     <string name="menu_user">User settings</string>
     <string name="menu_infobar">Information</string>
     <string name="menu_info">About app</string>
+    <string name="ordering_noOrdered">Not ordered</string>
     <string name="lgn_change_title">New user</string>
     <string name="lgn_btn_clear">Forget user</string>
     <string name="field_blank">Fields cannot be empty!</string>

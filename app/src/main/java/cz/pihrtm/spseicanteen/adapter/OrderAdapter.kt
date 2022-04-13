@@ -1,6 +1,7 @@
 package cz.pihrtm.spseicanteen.adapter
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ class OrderAdapter(val list: Array<FoodList?>) : RecyclerView.Adapter<OrderAdapt
     class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-    val view = LayoutInflater.from(parent.context).inflate(R.layout.list_obed,parent,false)
+    val view = LayoutInflater.from(parent.context).inflate(R.layout.list_ordering,parent,false)
     return ItemViewHolder(view)
     }
 
@@ -28,17 +29,19 @@ class OrderAdapter(val list: Array<FoodList?>) : RecyclerView.Adapter<OrderAdapt
         val datum = view.findViewById<TextView>(R.id.ob_Datum)
         val polevka = view.findViewById<TextView>(R.id.ob_Polevka)
         val spinner = view.findViewById<Spinner>(R.id.ob_FoodSpinner)
-        datum.text = list[position]?.datum
-        polevka.text = list[position]?.polevka
+        Log.d("pos", position.toString())
+        datum.text = list[position]?.datum.toString()
+        polevka.text = list[position]?.polevka.toString()
         val context = datum.context
         val listObed: MutableList<String> = ArrayList()
+        listObed.add(context.getString(R.string.ordering_noOrdered))
         listObed.add(list[position]?.obed1.toString())
         listObed.add(list[position]?.obed2.toString())
         listObed.add(list[position]?.obed3.toString())
 
         val adp1: ArrayAdapter<String> = ArrayAdapter<String>(
             context,
-            android.R.layout.simple_list_item_1, listObed
+            android.R.layout.simple_spinner_item, listObed
         )
         adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adp1
