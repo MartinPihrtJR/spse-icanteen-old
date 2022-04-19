@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
             //nic
         }
         else {
-            var json = context?.openFileInput("jidla.json")?.bufferedReader()?.readLines().toString() //read
+            var json = context?.openFileInput("orders.json")?.bufferedReader()?.readLines().toString() //read
             json = json.subSequence(1, json.length - 1).toString() //convert output back to string, it returns [string]
             Log.d("JSON", json)
             try {

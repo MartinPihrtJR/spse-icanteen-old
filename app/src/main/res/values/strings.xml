@@ -68,6 +68,7 @@
     <string name="welcome1_title">Welcome!</string>
     <string name="welcome2_title">Functions</string>
     <string name="welcome3_title">Almost there!</string>
+    <!--TODO dopsat tam že je to na vlastní triko -->
     <string name="autoOrderHint">If you select the auto-order feature, existing orders will not be canceled. The application automatically orders lunch only if it is not ordered for the day. It will auto-order 4 days advanced.</string>
     <string name="welcome3_description">You must log in to your school account to use the application. (The application doesn\'t share the data with anyone and uses it purely for functionality.)</string>
     <string name="welcome2_description">The application automatically orders meals for you, sends you a lunch notification, shows you what you have today and tomorrow for lunch on the home screen and maybe much more in the future! The application needs Internet access to download ordered meals.</string>

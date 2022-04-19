@@ -318,7 +318,7 @@ class GetJson : BroadcastReceiver() {
             it?.write(output.toByteArray())
         }
         json = output
-        Log.d("JSON", json)
+        Log.d("JSONOrders", json)
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val lastUpdate = current.format(formatter)
@@ -329,7 +329,7 @@ class GetJson : BroadcastReceiver() {
         saveToPrefs(context)
     }
 
-    fun orderFood(context: Context?,mode: Int){
+    private fun orderFood(context: Context?, mode: Int){
         var output = getDataFromUrl(fulladdr, context).toString()
         val filename = "orders.json"
         val fileContents = output
@@ -409,7 +409,18 @@ class GetJson : BroadcastReceiver() {
         context.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it?.write(output.toByteArray())
         }
+        Log.d("JSONAll", output.toString())
         Log.d("getFoodList", "DONE")
+    }
+
+    fun orderCustom(context: Context, date: String, id: Int, mode: String){
+        name = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing").toString()
+        pwd = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing").toString()
+        val verze = BuildConfig.VERSION_NAME
+        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null&ver=$verze"
+
+        val address = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno=$name&heslo=$pwd&api=$apikey&prikaz=$mode"
+        getDataFromUrl(address, context).toString()
     }
 
 

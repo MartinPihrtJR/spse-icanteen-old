@@ -14,14 +14,18 @@ import androidx.recyclerview.widget.RecyclerView
 import cz.pihrtm.spseicanteen.R
 import cz.pihrtm.spseicanteen.adapter.OrderAdapter
 import cz.pihrtm.spseicanteen.model.FoodList
+import cz.pihrtm.spseicanteen.model.Obed
 import org.json.JSONArray
 import java.io.StringReader
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class OrderingFragment : Fragment() {
 
     private lateinit var userViewModel: OrderingViewModel
     private lateinit var recycler: RecyclerView
     private lateinit var list: Array<FoodList?>
+    private lateinit var listOrder: Array<Obed?>
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -83,7 +87,49 @@ class OrderingFragment : Fragment() {
                 nodata.visibility = View.VISIBLE
                 recycler.visibility = View.GONE
             }
-            val adapter = OrderAdapter(list)
+            list.reverse()
+
+            try {
+                var jsonOrdered = context?.openFileInput("orders.json")?.bufferedReader()?.readLines().toString() //read
+                jsonOrdered = jsonOrdered.subSequence(1, jsonOrdered.length - 1).toString()
+                val mainObject = JSONArray(jsonOrdered)
+                val delkajson = mainObject.length() - 1
+                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                val current = LocalDate.now()
+                var notNew = 0
+                Log.d("jsonOrdered", jsonOrdered)
+                listOrder = arrayOfNulls<Obed>(delkajson+1)
+                for (i in 0..delkajson){
+                    val obedObj = mainObject.getJSONObject(i)
+                    val datum: String = obedObj.getString("datum")
+                    val obed: String = obedObj.getString("jidlo")
+                    val compdatum: LocalDate? = LocalDate.parse(datum, formatter)
+                    if (compdatum != null) {
+                        if (compdatum<current){
+                            notNew += 1
+                        }
+                        else{
+                            listOrder[i-notNew] = Obed(obed, datum)
+
+                        }
+                    }
+                }
+                listOrder.reverse()
+                listOrder = listOrder.drop(notNew).toTypedArray()
+
+            } catch (e: Exception){
+                Log.d("OrderingJsonParse", e.toString())
+            }
+            if (listOrder.isEmpty()) {
+                nodata.visibility = View.VISIBLE
+                recycler.visibility = View.GONE
+            }
+            Log.d("orderListSize", listOrder.size.toString())
+            for (i in 0..listOrder.size-1){
+                Log.d("listOrder", listOrder[i]!!.datum + ": " +  listOrder[i]!!.obed)
+            }
+
+            val adapter = OrderAdapter(list, listOrder)
             recycler.adapter = adapter
             recycler.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
             recycler.addItemDecoration(DividerItemDecoration(context,LinearLayoutManager.VERTICAL))
