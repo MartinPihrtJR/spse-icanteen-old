@@ -52,6 +52,7 @@ class OrderAdapter(val list: Array<FoodList?>, val ordered: Array<Obed?>) : Recy
         spinner.adapter = adp1
 
         //nastaveni podle toho co mame objednano
+<<<<<<< Updated upstream
         /*Log.d("ordered", ordered[position]?.obed?.trim().toString())
         Log.d("list1", listObed[1].trim().dropLastWhile {  !it.isLetter() })
         Log.d("list2", listObed[2].trim().dropLastWhile {  !it.isLetter() })
@@ -77,14 +78,55 @@ class OrderAdapter(val list: Array<FoodList?>, val ordered: Array<Obed?>) : Recy
                 Log.d("oreders","neni")
                 spinner.setSelection(0, false)
                 previous = 0
+=======
+
+        try {
+            Log.d("ordered", ordered[position]?.obed?.trim().toString())
+            Log.d("list1", listObed[1].trim().dropLastWhile { !it.isLetter() })
+            Log.d("list2", listObed[2].trim().dropLastWhile { !it.isLetter() })
+            Log.d("list3", listObed[3].trim().dropLastWhile { !it.isLetter() })
+        } catch (e: Exception){
+            Log.d("error", e.toString())
+        }
+
+
+        try {
+            when (ordered[position]?.obed?.trim()) {
+                listObed[1].trim().dropLastWhile { !it.isLetter() } -> {
+                    Log.d("oreders", "ordered == list 1")
+                    spinner.setSelection(1, false)
+                }
+                listObed[2].trim().dropLastWhile { !it.isLetter() } -> {
+                    Log.d("oreders", "ordered == list 2")
+                    spinner.setSelection(2, false)
+                }
+                listObed[3].trim().dropLastWhile { !it.isLetter() } -> {
+                    Log.d("oreders", "ordered == list 3")
+                    spinner.setSelection(3, false)
+                }
+                else -> {
+                    Log.d("oreders", "neni")
+                    spinner.setSelection(0, false)
+                }
+>>>>>>> Stashed changes
             }
+        } catch (e: Exception){
+            Log.d("oreders", "neni")
+            spinner.setSelection(0, false)
         }
 
 
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(arg0: AdapterView<*>?, arg1: View?, position: Int, id: Long) {
 
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                arg0: AdapterView<*>?,
+                arg1: View?,
+                position: Int,
+                id: Long
+            ) {
+
+<<<<<<< Updated upstream
                 if (position == 0){
                     (GetJson::orderCustom)(GetJson() ,context, list[holder.adapterPosition]?.datum.toString(), 4, "delete" )
                     Toast.makeText(context, listObed[position] + context.getString(R.string.ordering_delete), Toast.LENGTH_SHORT).show()
@@ -97,6 +139,9 @@ class OrderAdapter(val list: Array<FoodList?>, val ordered: Array<Obed?>) : Recy
                         (GetJson::orderCustom)(GetJson() ,context, list[holder.adapterPosition]?.datum.toString(), 3, "reorder" )
                         Toast.makeText(context, listObed[position] + context.getString(R.string.ordering_reorder), Toast.LENGTH_SHORT).show()
                     }
+=======
+                if (position == 0) {
+>>>>>>> Stashed changes
 
                 }
                 if (position == 2){
@@ -133,11 +178,10 @@ class OrderAdapter(val list: Array<FoodList?>, val ordered: Array<Obed?>) : Recy
 
 
         if (position % 2 == 0) {
-            view.setBackgroundColor(ContextCompat.getColor(view.context,R.color.light_blue_rv))
+            view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.light_blue_rv))
         } else {
-            view.setBackgroundColor(ContextCompat.getColor(view.context,R.color.transparent))
+            view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.transparent))
         }
 
     }
-
 }
