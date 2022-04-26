@@ -417,9 +417,9 @@ class GetJson : BroadcastReceiver() {
         name = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedName", "missing").toString()
         pwd = context.getSharedPreferences("creds", Context.MODE_PRIVATE)?.getString("savedPwd", "missing").toString()
         val verze = BuildConfig.VERSION_NAME
-        fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null&ver=$verze"
+        //fulladdr = "$addr$name&heslo=$pwd&api=$apikey&prikaz=null&ver=$verze"
 
-        val address = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno=$name&heslo=$pwd&api=$apikey&prikaz=$mode"
+        val address = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno=$name&heslo=$pwd&api=$apikey&prikaz=$id,$date,$mode&ver=$verze"
         getDataFromUrl(address, context).toString()
     }
 

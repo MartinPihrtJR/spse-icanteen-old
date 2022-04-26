@@ -87,4 +87,8 @@
     <string name="viewpwd" translatable="false">Show password</string>
     <string name="secretDis" translatable="false">Secret disabled</string>
     <string name="secretEn" translatable="false">Secret enabled</string>
+    <!-- TODO přeložit-->
+    <string name="ordering_make" translatable="false"> was ordered.</string>
+    <string name="ordering_reorder" translatable="false"> was reordered.</string>
+    <string name="ordering_delete" translatable="false"> was deleted.</string>
 </resources>

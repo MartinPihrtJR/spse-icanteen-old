@@ -164,7 +164,7 @@ class UserFragment : Fragment() {
         }
         //editor.remove("key")
         return view
-
+    //TODO po prvním přihlášení se musí počkat aby se aplikace nezasekla ve smyčce kvůli chybějícím obědnávkám nebo opravit tlačítko na první spuštění - asi vyrábí špatnej soubor
     }
     private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
