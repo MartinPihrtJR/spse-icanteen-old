@@ -130,6 +130,7 @@ class MainActivity : AppCompatActivity() {
                 if(this.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName", "missing") != "missing"){
                     uiScope.launch(Dispatchers.IO) {
                         GetJson().getFood(this@MainActivity)
+                        GetJson().getFoodList(this@MainActivity)
 
                     }
                 }

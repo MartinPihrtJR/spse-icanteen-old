@@ -96,14 +96,15 @@ class OrderingFragment : Fragment() {
                 val delkajson = mainObject.length() - 1
                 val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
                 val current = LocalDate.now()
+                Log.d("current", current.toString())
                 var notNew = 0
                 Log.d("jsonOrdered", jsonOrdered)
                 listOrder = arrayOfNulls<Obed>(delkajson+1)
                 for (i in 0..delkajson){
                     val obedObj = mainObject.getJSONObject(i)
-                    val datum: String = obedObj.getString("datum")
+                    val datum: String = LocalDate.parse(obedObj.getString("datum"), formatter).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                     val obed: String = obedObj.getString("jidlo")
-                    val compdatum: LocalDate? = LocalDate.parse(datum, formatter)
+                    val compdatum: LocalDate? = LocalDate.parse(datum)
                     if (compdatum != null) {
                         if (compdatum<current){
                             notNew += 1
@@ -128,8 +129,9 @@ class OrderingFragment : Fragment() {
             for (i in 0..listOrder.size-1){
                 Log.d("listOrder", listOrder[i]!!.datum + ": " +  listOrder[i]!!.obed)
             }
-
-            val adapter = OrderAdapter(list, listOrder)
+            var orderedIndex = 0
+            var previous = IntArray(50) { 0 }
+            val adapter = OrderAdapter(list, listOrder, orderedIndex, previous)
             recycler.adapter = adapter
             recycler.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
             recycler.addItemDecoration(DividerItemDecoration(context,LinearLayoutManager.VERTICAL))
