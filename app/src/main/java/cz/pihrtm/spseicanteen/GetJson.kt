@@ -84,6 +84,7 @@ class GetJson : BroadcastReceiver() {
                     if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
                         if (internetPreferences.getBoolean("net",false)){
                             getFood(context)
+                            getFoodList(context)
                         }
                     }
 
@@ -92,6 +93,7 @@ class GetJson : BroadcastReceiver() {
                     if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
                         if (internetPreferences.getBoolean("net",false)) {
                             orderFood(context, 3)
+                            getFoodList(context)
                         }
                     }
 
@@ -100,6 +102,7 @@ class GetJson : BroadcastReceiver() {
                     if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
                         if (internetPreferences.getBoolean("net",false)){
                             orderFood(context, 4)
+                            getFoodList(context)
                         }
                     }
 
@@ -108,6 +111,7 @@ class GetJson : BroadcastReceiver() {
                     if (context.getSharedPreferences("creds", Context.MODE_PRIVATE).getString("savedName","missing") != "missing"){
                         if (internetPreferences.getBoolean("net",false)) {
                             orderFood(context, 5)
+                            getFoodList(context)
                         }
                     }
 

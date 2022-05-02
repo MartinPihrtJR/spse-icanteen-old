@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         val titleFoodTomorrow: TextView = view.findViewById(R.id.titleFoodTomorrow)
         val titleFood2Tomorrow: TextView = view.findViewById(R.id.titleFood2Tomorrow)
         val lastDate: TextView = view.findViewById(R.id.lastUpdated)
-        val testBtn: Button = view.findViewById(R.id.buttonTest)
+
 
 
         if (context?.getSharedPreferences("first", Context.MODE_PRIVATE)?.getBoolean("isFirst",true)==true){
@@ -129,10 +129,7 @@ class HomeFragment : Fragment() {
 
             }
 
-        testBtn.setOnClickListener{
-            val i = Intent(context, GetJson::class.java)
-            context?.sendBroadcast(i)
-        }
+
 
 
 

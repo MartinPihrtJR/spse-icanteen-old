@@ -1,5 +1,7 @@
 package cz.pihrtm.spseicanteen.ui.ordering
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -38,6 +40,21 @@ class OrderingFragment : Fragment() {
         val scroll = savedInstanceState?.getInt("scrollOrder",0)?:0
         val nodata = view.findViewById<TextView>(R.id.noData)
 
+
+        //************************************************
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage(R.string.beta_notice)
+            .setPositiveButton(R.string.beta_ok,
+                DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+
+        // Create the AlertDialog object and return it
+
+
+
+
+        //**********************************************
 
         try {
             try {
@@ -139,6 +156,9 @@ class OrderingFragment : Fragment() {
         } catch (e: Exception){
             Log.d("OrderingStart", e.toString())
         }
+
+
+        builder.create().show() //dialog
 
         return view
     }

@@ -25,10 +25,14 @@ class FirstSetup : AppCompatActivity() {
 
     override fun finish() {
 
-        val filename = "jidla.json"
         val fileContents = "[{\"err\":\"not created\"}]"
+        var filename = "orders.json"
         this.openFileOutput(filename, Context.MODE_PRIVATE).use {
-             it?.write(fileContents.toByteArray())
+            it?.write(fileContents.toByteArray())
+        }
+        filename = "foodlist.json"
+        this.openFileOutput(filename, Context.MODE_PRIVATE).use {
+            it?.write(fileContents.toByteArray())
         }
         val sharedPref = this.getSharedPreferences("first", Context.MODE_PRIVATE)
         if (sharedPref != null) {

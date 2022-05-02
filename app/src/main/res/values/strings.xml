@@ -68,8 +68,7 @@
     <string name="welcome1_title">Welcome!</string>
     <string name="welcome2_title">Functions</string>
     <string name="welcome3_title">Almost there!</string>
-    <!--TODO dopsat tam že je to na vlastní triko -->
-    <string name="autoOrderHint">If you select the auto-order feature, existing orders will not be canceled. The application automatically orders lunch only if it is not ordered for the day. It will auto-order 4 days advanced.</string>
+    <string name="autoOrderHint">THIS FUNCTION IS NOT STABLE AND MAY NOT WORK! USE IT AT YOUR OWN RISK! <br/> If you select the auto-order feature, existing orders will not be canceled. The application automatically orders lunch only if it is not ordered for the day. It will auto-order 4 days advanced.</string>
     <string name="welcome3_description">You must log in to your school account to use the application. (The application doesn\'t share the data with anyone and uses it purely for functionality.)</string>
     <string name="welcome2_description">The application automatically orders meals for you, sends you a lunch notification, shows you what you have today and tomorrow for lunch on the home screen and maybe much more in the future! The application needs Internet access to download ordered meals.</string>
     <string name="welcome1_description">Thanks for downloading the application that will make your life easier! If it serves you well, I will be happy for the review. I will continue to update the application and add more features to it. Swipe left to continue…</string>
@@ -87,8 +86,9 @@
     <string name="viewpwd" translatable="false">Show password</string>
     <string name="secretDis" translatable="false">Secret disabled</string>
     <string name="secretEn" translatable="false">Secret enabled</string>
-    <!-- TODO přeložit-->
-    <string name="ordering_make" translatable="false"> was ordered.</string>
-    <string name="ordering_reorder" translatable="false"> was reordered.</string>
-    <string name="ordering_delete" translatable="false"> was deleted.</string>
+    <string name="ordering_make" > was ordered.</string>
+    <string name="ordering_reorder" > was reordered.</string>
+    <string name="ordering_delete" > was deleted.</string>
+    <string name="beta_notice">This feature is still under development and some features may not work. Thank you for understanding</string>
+    <string name="beta_ok" translatable="false">OK</string>
 </resources>

@@ -58,7 +58,7 @@
     <string name="welcome1_title">Vítejte!</string>
     <string name="welcome2_title">Funkce</string>
     <string name="welcome3_title">Už to skoro je!</string>
-    <string name="autoOrderHint">Pokud vyberete funkci automatického objednávání, stávající objednávky nebudou zrušeny. Aplikace automaticky obědná pouze když na den obědnáno není. Aplikace obědnává jídla 4 dny dopředu.</string>
+    <string name="autoOrderHint">TATO FUNKCE NENÍ STABILNÍ A NEMUSÍ FUNGOVAT! POUŽÍVEJTE JI NA VLASTNÍ RIZIKO! <br/> Pokud vyberete funkci automatického objednávání, stávající objednávky nebudou zrušeny. Aplikace automaticky obědná pouze když na den obědnáno není. Aplikace obědnává jídla 4 dny dopředu.</string>
     <string name="welcome3_description">Abyste aplikaci mohli používat, je třeba se přihlásit k vašemu stravovacímu účtu. (Aplikace data s nikým nesdílí a používá je čistě k funkčnosti.)</string>
     <string name="welcome2_description">Aplikace za Vás automaticky obědná jídla, pošle vám oznámení s obědem, na domovské obrazovce vám pomocí widgetu ukáže co máte dnes i zítra k obědu a v budoucnu možná mnohem víc! Aplikace potřebuje přístup k Internetu aby mohla stahovat objednaná jídla.</string>
     <string name="welcome1_description">Díky za stažení aplikace, která Vám usnadní život! Pokud Vám bude sloužit dobře, budu rád za recenzi. Aplikaci budu dále aktualizovat a přidávat do ní další funkce. Přejeďte prstem doleva pro pokračování…</string>
@@ -73,4 +73,8 @@
     <string name="noInternet">Pro aktualizaci obědnávek je potřeba připojení k síti!</string>
     <string name="lastUpdatedWTitle">Aktualizováno: nikdy</string>
     <string name="notifInfo">Po povolení funkce přijde ve vybraný čas oznámení s objednaným jídlem. Toto platí i při automatickém objednání.</string>
+    <string name="ordering_make" > byl objednán.</string>
+    <string name="ordering_reorder" > byl přeobjednán.</string>
+    <string name="ordering_delete" > byl smazán.</string>
+    <string name="beta_notice">Tato funkce je ještě ve vývoji a některé funkce nemusí fungovat. Děkuji za pochopení</string>
 </resources>
