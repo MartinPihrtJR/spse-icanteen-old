@@ -77,7 +77,7 @@ class GetJson : BroadcastReceiver() {
         }
 
         internetPreferences.edit().putBoolean("net",isOnline()).apply()
-
+        getFoodList(context)
         if (repeat == 4){
             when{
                 (mode==0)->{
@@ -425,6 +425,7 @@ class GetJson : BroadcastReceiver() {
 
         val address = "https://jidlo.pihrt.com/nacti_jidlo.php?jmeno=$name&heslo=$pwd&api=$apikey&prikaz=$id,$date,$mode&ver=$verze"
         getDataFromUrl(address, context).toString()
+        getFoodList(context)
     }
 
 

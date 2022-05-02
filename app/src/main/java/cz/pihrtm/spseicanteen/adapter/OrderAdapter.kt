@@ -165,7 +165,7 @@ class OrderAdapter(val list: Array<FoodList?>, private val ordered: Array<Obed?>
                             }
                             Toast.makeText(
                                 context,
-                                listObed[position] + context.getString(R.string.ordering_make),
+                                listObed[position] + " " +  context.getString(R.string.ordering_make),
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
@@ -183,7 +183,7 @@ class OrderAdapter(val list: Array<FoodList?>, private val ordered: Array<Obed?>
                             }
                             Toast.makeText(
                                 context,
-                                listObed[position] + context.getString(R.string.ordering_reorder),
+                                listObed[position] + " " +  context.getString(R.string.ordering_reorder),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -200,7 +200,7 @@ class OrderAdapter(val list: Array<FoodList?>, private val ordered: Array<Obed?>
                                     "make"
                                 )
                             }
-                            Toast.makeText(context, listObed[position] + context.getString(R.string.ordering_make), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, listObed[position] + " " + context.getString(R.string.ordering_make), Toast.LENGTH_SHORT).show()
                         } else{
                             Log.d("startedOrdering", "started reordering " + list[holder.adapterPosition]?.datum.toString() + "at index " + holder.adapterPosition)
                             uiScope.launch(Dispatchers.IO) {
@@ -211,7 +211,7 @@ class OrderAdapter(val list: Array<FoodList?>, private val ordered: Array<Obed?>
                                     "reorder"
                                 )
                             }
-                            Toast.makeText(context, listObed[position] + context.getString(R.string.ordering_reorder), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, listObed[position] + " " +  context.getString(R.string.ordering_reorder), Toast.LENGTH_SHORT).show()
                         }
                         previous[holder.adapterPosition] = 2
 
@@ -227,7 +227,7 @@ class OrderAdapter(val list: Array<FoodList?>, private val ordered: Array<Obed?>
                                     "make"
                                 )
                             }
-                            Toast.makeText(context, listObed[position] + context.getString(R.string.ordering_make), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, listObed[position] + " " + context.getString(R.string.ordering_make), Toast.LENGTH_SHORT).show()
                         } else{
                             Log.d("startedOrdering", "started reordering " + list[holder.adapterPosition]?.datum.toString() + "at index " + holder.adapterPosition)
                             uiScope.launch(Dispatchers.IO) {
@@ -238,7 +238,7 @@ class OrderAdapter(val list: Array<FoodList?>, private val ordered: Array<Obed?>
                                     "reorder"
                                 )
                             }
-                            Toast.makeText(context, listObed[position] + context.getString(R.string.ordering_reorder), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, listObed[position] + " " + context.getString(R.string.ordering_reorder), Toast.LENGTH_SHORT).show()
                         }
                         previous[holder.adapterPosition] = 3
                         //TODO padá - opravit

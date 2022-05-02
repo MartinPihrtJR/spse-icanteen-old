@@ -140,7 +140,7 @@ class UserFragment : Fragment() {
                 if (context?.getSharedPreferences("internet", Context.MODE_PRIVATE)?.getBoolean("net",false)!!){
                     uiScope.launch(Dispatchers.IO) {
                         GetJson().getFood(context)
-
+                        GetJson().getFoodList(requireContext())
                     }
                 }
             }
