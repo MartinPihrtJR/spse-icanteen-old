@@ -79,6 +79,21 @@ class MainActivity : AppCompatActivity() {
         titleFood2Tomorrow = view.findViewById(R.id.titleFood2Tomorrow)
         lastDate = view.findViewById(R.id.lastUpdated)
 
+        try{
+            this.openFileInput("orders.json")?.bufferedReader()?.readLines()
+            this.openFileInput("foodlist.json")?.bufferedReader()?.readLines()
+        } catch (e: Exception){
+            val fileContents = "[{\"err\":\"not created\"}]"
+            var filename = "orders.json"
+            this.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                it?.write(fileContents.toByteArray())
+            }
+            filename = "foodlist.json"
+            this.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                it?.write(fileContents.toByteArray())
+            }
+        }
+
         preferences = getPreferences(Context.MODE_PRIVATE)
         appBarConfiguration = AppBarConfiguration(
                 setOf(
